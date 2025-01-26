@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://mysmi.uk
+
+# Sitemaps
+Sitemap: https://mysmi.uk/sitemap.xml
