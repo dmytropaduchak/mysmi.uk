@@ -1,5 +1,4 @@
-import { HomeOutlined } from "@mui/icons-material";
-import { Toolbar, IconButton, Button, useTheme, useMediaQuery, Box } from "@mui/material";
+import { Toolbar, Button, useTheme, useMediaQuery, Box, Avatar, Link, Typography } from "@mui/material";
 import { usePathname } from "next/navigation";
 import { FC, memo } from "react";
 import Image from "next/image";
@@ -10,7 +9,36 @@ const Header: FC = memo(() => {
   const mdMatch = useMediaQuery(theme.breakpoints.down('md'));
 
   if (mdMatch) {
-    return null;
+    return (
+      <Link
+        underline="none"
+        color="inherit"
+        href="/"
+        sx={{
+          display: "flex",
+          marginRight: 2,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Avatar sx={{ width: 45, height: 45, padding: "5px" }} src="/icon0.svg" />
+        <Box>
+          <Typography component="h1" sx={{
+            textTransform: "uppercase",
+            lineHeight: 1,
+            fontSize: "0.8125rem",
+            marginTop: 1,
+          }}>
+            Secure Motors International LTD
+          </Typography>
+          <Typography component="h2" variant="caption" sx={{
+            opacity: 0.6,
+          }}>
+            Mobile Auto Locksmith Service You Can Trust
+          </Typography>
+        </Box>
+      </Link>
+    );
   }
 
   return (
@@ -20,14 +48,40 @@ const Header: FC = memo(() => {
       display: "flex",
       justifyContent: "space-between"
     }}>
-      <Box>
-        <IconButton
-          size="small"
-          color={pathname === "/" ? "primary" : "inherit"}
+      <Box sx={{
+        display: "flex",
+
+        alignItems: "center",
+
+      }}>
+        <Link
+          underline="none"
+          color="inherit"
           href="/"
+          sx={{
+            display: "flex",
+            marginRight: 2,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
-          <HomeOutlined fontSize="small" />
-        </IconButton>
+          <Avatar sx={{ width: 45, height: 45, padding: "5px" }} src="/icon0.svg" />
+          <Box>
+            <Typography component="h1" sx={{
+              textTransform: "uppercase",
+              lineHeight: 1,
+              fontSize: "0.8125rem",
+              marginTop: 1,
+            }}>
+              Secure Motors International LTD
+            </Typography>
+            <Typography component="h2" variant="caption" sx={{
+              opacity: 0.6,
+            }}>
+              Mobile Auto Locksmith Service You Can Trust
+            </Typography>
+          </Box>
+        </Link>
         <Button
           size="small"
           color={pathname === "/type-of-service" ? "primary" : "inherit"}

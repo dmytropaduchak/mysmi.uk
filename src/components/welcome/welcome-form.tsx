@@ -91,7 +91,7 @@ const WelcomeForm: FC = memo(() => {
           }}
         >
           <Typography
-            variant="h1"
+            variant="h3"
             sx={{
               lineHeight: 1,
               marginBottom: 1.5,
