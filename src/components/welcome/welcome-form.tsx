@@ -1,8 +1,8 @@
 import { FC, useEffect, memo, useCallback, useState, useMemo, SyntheticEvent } from "react";
 import { useForm, Controller } from "react-hook-form"
-import { Switch, FormControlLabel, Paper, Typography, TextField, Button, IconButton, Autocomplete, AutocompleteRenderInputParams, CircularProgress, Box, useTheme, useMediaQuery } from "@mui/material";
+import { Switch, FormControlLabel, Paper, Typography, TextField, Button, IconButton, Autocomplete, AutocompleteRenderInputParams, CircularProgress, Box, useTheme, useMediaQuery, InputAdornment } from "@mui/material";
 import { Place } from "@mui/icons-material";
-import { yellow } from "@mui/material/colors";
+import { blue, yellow } from "@mui/material/colors";
 import { MuiTelInput } from "mui-tel-input";
 import Animation from '../animation/animation';
 import { useNotification } from "../../utils/state/state";
@@ -182,12 +182,27 @@ const WelcomeForm: FC = memo(() => {
             variant="outlined"
             sx={{
               mb: 2,
+              borderRadius: "4px 0 0 4px",
               backgroundColor: yellow[400],
               ".MuiInputBase-root": {
                 paddingLeft: 0,
               },
             }}
             slotProps={{
+              input: {
+                startAdornment: (
+                  <InputAdornment position="start" sx={{
+                    display: "inline-table",
+                    backgroundColor: blue[700],
+                    color: "white",
+                    opacity: 0.8,
+                    borderRadius: "4px 0 0 4px",
+                    padding: "0 3px",
+                  }}>
+                    <Box>GB</Box>
+                  </InputAdornment>
+                )
+              },
               htmlInput: {
                 style: {
                   textTransform: "uppercase",

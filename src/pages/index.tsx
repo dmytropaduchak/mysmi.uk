@@ -60,12 +60,12 @@ const Page: FC = memo(() => {
                   alignItems: "center",
                 }}
               >
-                <Avatar sx={{ width: 65, height: 65, padding: "5px" }} src="/icon0.svg" />
+                <Avatar sx={{ width: 55, height: 55, padding: "5px" }} src="/icon0.svg" />
                 <Box>
                   <Typography component="h1" sx={{
                     textTransform: "uppercase",
                     lineHeight: 1,
-                    fontSize: "1.2rem",
+                    fontSize: "1rem",
                     marginTop: 1,
                   }}>
                     Secure Motors International LTD
