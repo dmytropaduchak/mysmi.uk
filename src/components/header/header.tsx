@@ -9,36 +9,7 @@ const Header: FC = memo(() => {
   const mdMatch = useMediaQuery(theme.breakpoints.down('md'));
 
   if (mdMatch) {
-    return (
-      <Link
-        underline="none"
-        color="inherit"
-        href="/"
-        sx={{
-          display: "flex",
-          marginRight: 2,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Avatar sx={{ width: 45, height: 45, padding: "5px" }} src="/icon0.svg" />
-        <Box>
-          <Typography component="h1" sx={{
-            textTransform: "uppercase",
-            lineHeight: 1,
-            fontSize: "0.8125rem",
-            marginTop: 1,
-          }}>
-            Secure Motors International LTD
-          </Typography>
-          <Typography component="h2" variant="caption" sx={{
-            opacity: 0.6,
-          }}>
-            Mobile Auto Locksmith Service You Can Trust
-          </Typography>
-        </Box>
-      </Link>
-    );
+    return null;
   }
 
   return (

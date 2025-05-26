@@ -1,5 +1,5 @@
 import { FC, memo } from "react";
-import { Box, Grid2, useMediaQuery, useTheme } from "@mui/material";
+import { Avatar, Box, Grid2, Link, Typography, useMediaQuery, useTheme } from "@mui/material";
 import Layout from "../components/layout/layout";
 import WelcomeText from "../components/welcome/welcome-text";
 import WelcomeForm from "../components/welcome/welcome-form";
@@ -48,6 +48,37 @@ const Page: FC = memo(() => {
               md: 5,
             }}
           >
+            {mdMatch && (
+              <Link
+                underline="none"
+                color="inherit"
+                href="/"
+                sx={{
+                  display: "flex",
+                  marginBottom: 2,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Avatar sx={{ width: 65, height: 65, padding: "5px" }} src="/icon0.svg" />
+                <Box>
+                  <Typography component="h1" sx={{
+                    textTransform: "uppercase",
+                    lineHeight: 1,
+                    fontSize: "1.2rem",
+                    marginTop: 1,
+                  }}>
+                    Secure Motors International LTD
+                  </Typography>
+                  <Typography component="h2" variant="caption" sx={{
+                    opacity: 0.6,
+                    fontSize: "0.8rem",
+                  }}>
+                    Mobile Auto Locksmith Service You Can Trust
+                  </Typography>
+                </Box>
+              </Link>
+            )}
             <WelcomeForm />
           </Grid2>
         </Grid2>
