@@ -33,7 +33,7 @@ const WelcomeForm: FC = memo(() => {
   const theme = useTheme();
   const mdMatch = useMediaQuery(theme.breakpoints.down('md'));
   const notification = useNotification();
-  const { register, handleSubmit, control, watch, formState } = useForm<Data>();
+  const { register, handleSubmit, control, watch, formState, reset } = useForm<Data>();
 
   useEffect(() => {
     if (!time) {
@@ -49,6 +49,7 @@ const WelcomeForm: FC = memo(() => {
 
   const onSubmit = useCallback((data: Data) => {
     setLoading(true);
+    reset();
     fetch('/api/quote', {
       method: 'POST',
       body: JSON.stringify(data),
@@ -71,9 +72,11 @@ const WelcomeForm: FC = memo(() => {
         text: error.message,
       });
       setLoading(false);
+    })
+    .finally(() => {
+      setTime(5);
     });
-    setTime(5);
-  }, [setLoading, setTime, notification]);
+  }, [reset, setLoading, setTime, notification]);
 
   const options = useMemo(() => SERVICES.map((i) => ({
     title: i,
@@ -98,7 +101,7 @@ const WelcomeForm: FC = memo(() => {
               fontSize: "1.8rem",
             }}
           >
-            {mdMatch ? "AUTOMOTIVE LOCKSMITH" : "INSTANT QUOTE"}
+            {mdMatch ? "CAR KEYS SPECIALIST" : "INSTANT QUOTE"}
           </Typography>
           <Typography
             variant="subtitle1"
@@ -178,7 +181,7 @@ const WelcomeForm: FC = memo(() => {
           <TextField 
             fullWidth
             size="small"
-            label="Registration Number"
+            label=""
             variant="outlined"
             sx={{
               mb: 2,

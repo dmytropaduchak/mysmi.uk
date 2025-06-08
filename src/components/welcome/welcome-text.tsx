@@ -33,7 +33,7 @@ const WelcomeText: FC = memo(() => {
               fontSize: "2.1rem",
             }}
           >
-            AUTOMOTIVE LOCKSMITH
+            CAR KEYS SPECIALIST
           </Title>
           <Description
             sx={{

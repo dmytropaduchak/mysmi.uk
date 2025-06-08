@@ -1,7 +1,6 @@
 import { FC, memo, ReactNode, useEffect, useState } from "react";
 import { Box, createTheme, CssBaseline, ThemeProvider } from "@mui/material";
-import { Html, Head } from 'next/document'
-
+import Head from "next/head";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/200.css";
@@ -65,7 +64,7 @@ const Layout: FC<Props> = memo(({ background, children }) => {
   }, []);
 
   return (
-    <Html lang="en-GB">
+    <>
       <Head>
         <title>Trusted Mobile Auto Locksmith Service | MySMI.uk</title>
         <meta name="description" content="Locked out or lost your car keys? MySMI.uk provides fast, reliable, and professional mobile auto locksmith services. Available 24/7." />
@@ -105,7 +104,7 @@ const Layout: FC<Props> = memo(({ background, children }) => {
           </Box>
         )}
       </ThemeProvider>
-    </Html>
+    </>
   );
 });
 
