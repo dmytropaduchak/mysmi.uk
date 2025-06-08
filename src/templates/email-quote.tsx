@@ -11,7 +11,7 @@ interface TemplateProps {
 
 export const TemplateEmail: FC<Readonly<TemplateProps>> = (props) => (
   <div>
-    <h2>Personalized Quote for "{props.name}:</h2>
+    <h2>Personalized Quote for &quot;{props.name}&quot;:</h2>
     <ul>
       <li><strong>Phone Number</strong>: <a href={`tel:${props.phone}`}>{props.phone}</a></li>
       <li><strong>Post Code</strong>: <a href={`https://maps.google.com/maps?q=${props.postcode}`}>{props.postcode}</a></li>

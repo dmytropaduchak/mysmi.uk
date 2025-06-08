@@ -49,6 +49,7 @@ const WelcomeForm: FC = memo(() => {
 
   const onSubmit = useCallback((data: Data) => {
     setLoading(true);
+    setTime(5);
     reset();
     fetch('/api/quote', {
       method: 'POST',
@@ -72,9 +73,6 @@ const WelcomeForm: FC = memo(() => {
         text: error.message,
       });
       setLoading(false);
-    })
-    .finally(() => {
-      setTime(5);
     });
   }, [reset, setLoading, setTime, notification]);
 
