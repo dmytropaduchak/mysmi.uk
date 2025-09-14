@@ -71,6 +71,11 @@ const Layout: FC<Props> = memo(({ background, children }) => {
         <meta name="apple-mobile-web-app-title" content="smi.uk" />
         <meta name="keywords" content="emergency car lockout, locksmith service, car locksmith, auto locksmith, car key replacement, emergency locksmith, emergency car unlocking, car lockout service, open car fast, locked keys in car, fast auto locksmith, urgent car door opening, 24/7 car locksmith, mobile car unlocking, broken key removal, quick vehicle access, keyless car entry service" />
         <meta name="robots" content="index, follow" />
+        <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />\
+        <link rel="manifest" href="/site.webmanifest" />
         <meta property="og:title" content="Trusted Mobile Auto Locksmith Service | MySMI.uk"/>
         <meta property="og:description" content="Locked out or lost your car keys? MySMI.uk provides fast, reliable, and professional mobile auto locksmith services. Available 24/7."/>
         <meta property="og:url" content="https://www.mysmi.uk/"/>
