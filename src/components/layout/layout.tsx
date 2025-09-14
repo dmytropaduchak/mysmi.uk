@@ -76,10 +76,12 @@ const Layout: FC<Props> = memo(({ background, children }) => {
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />\
         <link rel="manifest" href="/site.webmanifest" />
+        
         <meta property="og:title" content="Trusted Mobile Auto Locksmith Service | MySMI.uk"/>
         <meta property="og:description" content="Locked out or lost your car keys? MySMI.uk provides fast, reliable, and professional mobile auto locksmith services. Available 24/7."/>
         <meta property="og:url" content="https://www.mysmi.uk/"/>
         <meta property="og:type" content="website"/>
+
         <link rel="canonical" href="https://www.mysmi.uk/" />
         <script 
           type="application/ld+json"
