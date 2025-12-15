@@ -1,6 +1,8 @@
 import { atomWithStorage } from "jotai/utils";
 import { PaletteMode } from "@mui/material";
 
+const { name } = require('../../package.json');
+
 export enum CONSENT {
   YES = "yes",
   NO = "no",
@@ -26,12 +28,13 @@ export interface State {
   messages: Message[];
   consent?: CONSENT;
   consentSettings?: Record<string, CONSENT>;
+  color: string;
   theme: THEMES | PaletteMode;
-  email?: string;
 }
 
-export const atom = atomWithStorage<State>("atom", {
+export const atom = atomWithStorage<State>(name, {
   theme: THEMES.DARK,
+  color: "#e9853dff",
   messages: [],
 });
 

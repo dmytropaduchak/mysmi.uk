@@ -3,13 +3,15 @@ import { Grid, Avatar, Box, Link, Typography, useMediaQuery, useTheme } from "@m
 // import Layout from "../components/layout/layout";
 import WelcomeText from "../components/welcome/welcome-text";
 import WelcomeForm from "../components/welcome/welcome-form";
+import Header from "../components/header";
 
-const Page: FC = memo(() => {
+export default function Page() {
   const theme = useTheme();
-  const mdMatch = useMediaQuery(theme.breakpoints.down('md'));
+  // const mdMatch = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
     <>
+      <Header />
       <Box sx={{
         // maxWidth: "1200px",
         // margin: "0 auto",
@@ -83,7 +85,4 @@ const Page: FC = memo(() => {
       </Box>
     </>
   );
-});
-
-Page.displayName = "Page";
-export default Page;
+}

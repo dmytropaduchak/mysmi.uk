@@ -114,11 +114,12 @@ export default function _App(props: AppProps) {
   return (
     <AppCacheProvider {...props}>
       <Head>
-        <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="icon" href="/icon?32x3" type="image/png" sizes="32x32" />
+        <link rel="icon" href="/icon?96x96" type="image/png" sizes="96x96" />
+        <link rel="apple-touch-icon" href="/apple-icon?180x180" type="image/png" sizes="180x180" />
+
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <meta name="apple-mobile-web-app-title" content="dayStoic.com" />
+        <meta name="apple-mobile-web-app-title" content="mySMI.uk" />
         <link rel="manifest" href="/site.webmanifest" />
       </Head>
       <Body>
