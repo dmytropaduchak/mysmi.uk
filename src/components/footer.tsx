@@ -1,15 +1,18 @@
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
-import { Typography, useTheme, Box, ClickAwayListener, Tooltip } from "@mui/material";
+import { Typography, useTheme, Box, ClickAwayListener, Tooltip, Button, Link } from "@mui/material";
 import { useAtom } from "jotai";
 import { HexColorPicker } from "react-colorful";
 import { atom, THEMES } from "../atom/atom";
 import Switch from "./switch";
+import { useRouter } from "next/router";
 
 export default function Footer() {
   const theme = useTheme();
   const [data, setData] = useAtom(atom);
   const [checked, setChecked] = useState(false);
   const [open, setOpen] = useState(false);
+
+  const router = useRouter()
 
   useEffect(() => {
     setChecked(data.theme === THEMES.LIGHT);
@@ -36,6 +39,28 @@ export default function Footer() {
     setOpen(true);
   }, [setOpen]);
 
+  const onClickTermsAndAgreements = useCallback(() => {
+    router.push("/terms-and-agreements");
+  }, [router]);
+
+  const onClickCookieStatement = useCallback(() => {
+    router.push("/cookie-statement");
+  }, [router]);
+
+  const onClickPrivacyStatement = useCallback(() => {
+    router.push("/privacy-statement");
+  }, [router]);
+
+  const onClickContactUs = useCallback(() => {
+    router.push("/contact-us");
+  }, [router]);
+
+  const onClickAboutUs = useCallback(() => {
+    router.push("/about-us");
+  }, [router]);
+
+  onClickAboutUs
+
   return (
     <Box sx={{
       padding: 2,
@@ -61,17 +86,6 @@ export default function Footer() {
             justifyContent: "center",
           },
           opacity: 0.6
-        }}>
-          <Typography color="secondary" variant="caption">
-            © {new Date().getFullYear()} paduchak.com
-          </Typography>
-        </Box>
-        <Box sx={{
-          display: "flex",
-          '& .MuiTooltip-tooltip': {
-            padding: "4px",
-            borderRadius: "12px",
-          }
         }}>
           <ClickAwayListener onClickAway={onClickAway}>
             <div>
@@ -107,6 +121,88 @@ export default function Footer() {
               </Tooltip>
             </div>
           </ClickAwayListener>
+          <Typography color="secondary" variant="caption">
+            © {new Date().getFullYear()} mySMI.uk
+          </Typography>
+        </Box>
+        <Box sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          alignItems: "center",
+          '& .MuiTooltip-tooltip': {
+            padding: "4px",
+            borderRadius: "12px",
+          }
+        }}>
+          <Typography variant="caption" sx={{
+            marginLeft: 2,
+            whiteSpace: "nowrap",
+            fontWeight: 200,
+          }}>
+            <Link onClick={onClickAboutUs} color="secondary" underline="none" sx={{
+              "&:hover": {
+                color: "primary.main",
+              },
+            }}>
+              About Us
+            </Link>
+          </Typography>
+          <Typography variant="caption" sx={{
+            marginLeft: 2,
+            whiteSpace: "nowrap",
+            fontWeight: 200,
+          }}>
+            <Link onClick={onClickContactUs} color="secondary" underline="none" sx={{
+              "&:hover": {
+                color: "primary.main",
+              },
+            }}>
+              Contact Us
+            </Link>
+          </Typography>
+          <Typography variant="caption" sx={{
+            marginLeft: 2,
+            whiteSpace: "nowrap",
+            fontWeight: 200,
+          }}>
+            <Link onClick={onClickTermsAndAgreements} color="secondary" underline="none" sx={{
+              "&:hover": {
+                color: "primary.main",
+              },
+            }}>
+              Terms and Agreements
+            </Link>
+          </Typography>
+
+          <Typography variant="caption" sx={{
+            marginLeft: 2,
+            whiteSpace: "nowrap",
+            fontWeight: 200,
+          }}>
+            <Link onClick={onClickCookieStatement} color="secondary" underline="none" sx={{
+              "&:hover": {
+                color: "primary.main",
+              },
+            }}>
+              Cookie Statement
+            </Link>
+          </Typography>
+
+          <Typography variant="caption" sx={{
+            marginLeft: 2,
+            whiteSpace: "nowrap",
+            fontWeight: 200,
+            marginRight: 2,
+          }}>
+            <Link onClick={onClickPrivacyStatement} color="secondary" underline="none" sx={{
+              "&:hover": {
+                color: "primary.main",
+              },
+            }}>
+              Privacy Statement
+            </Link>
+          </Typography>
           <Switch size="small" color="primary" checked={checked} onChange={onChangeTheme} />
         </Box>
       </Box>

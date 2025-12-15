@@ -1,88 +1,137 @@
-import { FC, memo } from "react";
-import { Grid, Avatar, Box, Link, Typography, useMediaQuery, useTheme } from "@mui/material";
-// import Layout from "../components/layout/layout";
-import WelcomeText from "../components/welcome/welcome-text";
-import WelcomeForm from "../components/welcome/welcome-form";
+import { useCallback, useMemo } from "react";
+import { alpha } from "@mui/material/styles";
+import { Box, Typography, useTheme, Button } from "@mui/material";
 import Header from "../components/header";
+import Footer from "../components/footer";
+import { useAtom } from "jotai";
+import { atom, THEMES } from "../atom/atom";
+import { AutoAwesome, PhoneInTalk } from "@mui/icons-material";
 
 export default function Page() {
   const theme = useTheme();
-  // const mdMatch = useMediaQuery(theme.breakpoints.down('md'));
+
+  const [data] = useAtom(atom);
+
+  const onClickEmergencyCall = useCallback(() => {
+    fetch("/api/phonecall", {
+      method: "POST",
+      keepalive: true,
+    });
+  }, []);
+
+  const onClickQuickBooking = useCallback(() => {
+
+  }, [])
+
+  const img = useMemo(() => {
+    const imgs = [0,1,2,4];
+    return imgs[Math.floor(Math.random() * imgs.length)];
+  }, [])
 
   return (
-    <>
-      <Header />
+    <Box sx={{
+      minHeight: "100vh", 
+      display: "flex",
+      flexDirection: "column",
+      "&::before": {
+        content: '""',
+        position: "absolute",
+        inset: 0,
+        zIndex: 0,
+        background: `url('/assets/background${img}.jpg') no-repeat center / cover`,
+        filter:
+          data.theme === THEMES.DARK
+            ? "brightness(55%) saturate(110%)"
+            : "brightness(140%) contrast(90%) saturate(115%)",
+        opacity: data.theme === THEMES.DARK ? 1 : 0.95,
+      },
+      "&::after": {
+        content: '""',
+        position: "absolute",
+        inset: 0,
+        background: "inherit",
+        filter:
+          data.theme === THEMES.DARK
+            ? "brightness(55%) saturate(110%) blur(4px)"
+            : "brightness(140%) contrast(90%) saturate(115%) blur(2px)",
+            }
+    }}>
       <Box sx={{
-        // maxWidth: "1200px",
-        // margin: "0 auto",
+        position: "relative",
+        zIndex: 1,
+        flex: 1,
+        display: "flex",
+        flexDirection: "column",
       }}>
-        {/* <Grid
-          container
-          spacing={2}
-          direction="row"
-          sx={{
-            padding: '21px',
-            justifyContent: "center",
-            alignItems: "center",
-            ...(mdMatch ? {
-              minHeight: "100vh",
-              flexDirection: "column-reverse",
-              display: "flex",
-            } : {
-              display: "flex",
-              minHeight: "calc(100vh - 48px)",
-            }),
-          }}
-        >
-          <Grid
-            size={{
-              xs: 12,
-              md: 7,
-            }}
-          >
-            <WelcomeText />
-          </Grid>
-          <Grid
-            size={{
-              xs: 12,
-              md: 5,
-            }}
-          >
-            {mdMatch && (
-              <Link
-                underline="none"
-                color="inherit"
-                href="/"
-                sx={{
-                  display: "flex",
-                  marginBottom: 2,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Avatar sx={{ width: 55, height: 55, padding: "5px" }} src="/icon0.svg" />
-                <Box>
-                  <Typography component="h1" sx={{
-                    textTransform: "uppercase",
-                    lineHeight: 1,
-                    fontSize: "1rem",
-                    marginTop: 1,
-                  }}>
-                    Secure Motors International LTD
-                  </Typography>
-                  <Typography component="h2" variant="caption" sx={{
-                    opacity: 0.6,
-                    fontSize: "0.8rem",
-                  }}>
-                    Mobile Auto Locksmith Service You Can Trust
-                  </Typography>
-                </Box>
-              </Link>
-            )}
-            <WelcomeForm />
-          </Grid>
-        </Grid> */}
+        <Header />
+        <Box sx={{
+          flex: 1,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+          textAlign: "center",
+          marginLeft: 2,
+          marginRight: 2,
+        }}>
+          <Box sx={{
+            maxWidth: 720,
+          }}>
+            <Typography variant="h1" sx={{
+              fontWeight: 500,
+              fontSize: 60,
+              flexWrap: "wrap",
+            }}>Mobile Auto <Box component="span" sx={{ color: "primary.main" }}>Locksmiths</Box> for Car Key Emergencies</Typography>
+            <Typography variant="body1" sx={{
+              fontWeight: 300,
+            }}>Fast, reliable mobile auto locksmith services for all car lock and key emergencies - trusted by drivers across London.</Typography>
+          </Box>
+
+          <Button variant="contained" size="large" href={`tel:+${process.env.NEXT_PUBLIC_PHONE_NUMBER}`} onClick={onClickEmergencyCall} sx={{
+            marginTop: 3,
+            borderRadius: 16,
+            paddingRight: 2,
+            paddingLeft: 2,
+            color: "white",
+            boxShadow: (theme) => `0 0 22px ${alpha(theme.palette.primary.main, 0.45)}`,
+            "&:hover": {
+              boxShadow: (theme) => `0 0 44px ${alpha(theme.palette.primary.main, 0.45)}`,
+            },
+            "@keyframes clickMe": {
+              "0%, 100%": { transform: "translateY(0) scale(1)" },
+              "50%": { transform: "translateY(3px) scale(1.04)" },
+            },
+            animation: "clickMe 1.2s ease-in-out infinite",
+            transformOrigin: "center",
+            willChange: "transform",
+            "&:active": { transform: "translateY(1px) scale(0.98)" },
+            [theme.breakpoints.down('md')]: {
+              width: "100%",
+            },
+          }}>
+            <PhoneInTalk fontSize="small" sx={{
+              marginRight: 1,
+            }} /> 
+            Emergency call
+          </Button>
+
+          <Button variant="outlined" size="large" onClick={onClickQuickBooking} sx={{
+            marginTop: 2,
+            borderRadius: 16,
+            paddingRight: 2,
+            paddingLeft: 2,
+            [theme.breakpoints.down('md')]: {
+              width: "100%",
+            },
+          }}>
+            <AutoAwesome fontSize="small" sx={{
+              marginRight: 1,
+            }} /> 
+            Quick booking
+          </Button>
+        </Box>
+        <Footer />
       </Box>
-    </>
+    </Box>
   );
 }

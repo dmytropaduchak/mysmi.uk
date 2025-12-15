@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  exclude: [],
+  exclude: ["/icon", "/apple-icon"],
   siteUrl: "https://mysmi.uk",
   changefreq: "weekly",
   generateRobotsTxt: true,
