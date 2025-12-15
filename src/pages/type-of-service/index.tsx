@@ -1,5 +1,6 @@
 import { FC, memo } from "react";
-import { Box, Card, Grid2, Typography } from "@mui/material";
+import Grid from "@mui/material/Grid";
+import { Box, Card, Typography } from "@mui/material";
 import Layout from "../../components/layout/layout";
 import Animation from "../../components/animation/animation";
 
@@ -10,7 +11,7 @@ const TypeOfService: FC = memo(() => {
         maxWidth: "1200px",
         margin: "0 auto",
       }}>
-        <Grid2
+        <Grid
           container
           spacing={2}
           direction="row"
@@ -21,7 +22,7 @@ const TypeOfService: FC = memo(() => {
             minHeight: "100vh",
           }}
         >
-          <Grid2
+          <Grid
             size={{
               xs: 12,
               md: 12,
@@ -52,8 +53,8 @@ const TypeOfService: FC = memo(() => {
                 At MySMI.UK, we provide a range of professional car locksmith services to meet your needs. Whether you’ve lost all your keys, need a spare remote, or require urgent assistance, we’ve got you covered. Choose from the options below to find the service that best fits your situation.
               </Typography>
             </Animation>
-          </Grid2>
-          <Grid2
+          </Grid>
+          <Grid
             size={{
               xs: 12,
               md: 6,
@@ -86,8 +87,8 @@ const TypeOfService: FC = memo(() => {
                 </Typography>
               </Card>
             </Animation>
-          </Grid2>
-          <Grid2
+          </Grid>
+          <Grid
             size={{
               xs: 12,
               md: 6,
@@ -120,8 +121,8 @@ const TypeOfService: FC = memo(() => {
                 </Typography>
               </Card>
             </Animation>
-          </Grid2>
-          <Grid2
+          </Grid>
+          <Grid
             size={{
               xs: 12,
               md: 6,
@@ -154,8 +155,8 @@ const TypeOfService: FC = memo(() => {
                 </Typography>
               </Card>
             </Animation>
-          </Grid2>
-          <Grid2
+          </Grid>
+          <Grid
             size={{
               xs: 12,
               md: 6,
@@ -188,8 +189,8 @@ const TypeOfService: FC = memo(() => {
                 </Typography>
               </Card>
             </Animation>
-          </Grid2>
-        </Grid2>
+          </Grid>
+        </Grid>
       </Box>
     </Layout>
   );

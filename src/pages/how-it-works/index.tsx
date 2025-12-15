@@ -1,5 +1,6 @@
 import { FC , memo} from "react";
-import { Box, Grid2, Typography, Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
+import Grid from "@mui/material/Grid";
+import { Box, Typography, Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import { ArrowDropDown } from "@mui/icons-material";
 import Animation from "../../components/animation/animation";
 import Layout from "../../components/layout/layout";
@@ -11,7 +12,7 @@ const HowItWorks: FC = memo(() => {
         maxWidth: "1200px",
         margin: "0 auto",
       }}>
-        <Grid2
+        <Grid
           container
           spacing={2}
           direction="row"
@@ -22,7 +23,7 @@ const HowItWorks: FC = memo(() => {
             minHeight: "100vh",
           }}
         >
-          <Grid2
+          <Grid
             size={{
               xs: 12,
               md: 12,
@@ -57,8 +58,8 @@ const HowItWorks: FC = memo(() => {
                 Getting your car key issues sorted is quick and simple. Follow these easy steps to get the service you need
               </Typography>
             </Animation>
-          </Grid2>
-          <Grid2
+          </Grid>
+          <Grid
             size={{
               xs: 12,
               md: 12,
@@ -155,8 +156,8 @@ const HowItWorks: FC = memo(() => {
                 </AccordionDetails>
               </Accordion>
             </Animation>
-          </Grid2>
-        </Grid2>
+          </Grid>
+        </Grid>
       </Box>
     </Layout>
   )

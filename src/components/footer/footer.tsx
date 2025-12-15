@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, memo, useCallback, useEffect, useState } from "react";
-import { Grid2, Typography, Switch, Button, styled, useMediaQuery, useTheme } from "@mui/material";
+import { Grid, Typography, Switch, Button, styled, useMediaQuery, useTheme } from "@mui/material";
 import { usePathname } from "next/navigation";
 import state, { THEMES } from "../../utils/state/state";
 import { useAtom } from "jotai";
@@ -72,7 +72,7 @@ const Footer: FC = memo(() => {
 
 
   return (
-    <Grid2
+    <Grid
       container
       spacing={2}
       direction="row"
@@ -83,7 +83,7 @@ const Footer: FC = memo(() => {
         padding: "0px 8px",
       }}
     >
-      <Grid2 size={{
+      <Grid size={{
         xs: 12,
         md: 4,
       }}>
@@ -108,8 +108,8 @@ const Footer: FC = memo(() => {
             />
           )}
         </Typography>
-      </Grid2>
-      <Grid2 size={{
+      </Grid>
+      <Grid size={{
         xs: 12,
         md: 8
       }} sx={{
@@ -159,12 +159,11 @@ const Footer: FC = memo(() => {
             onChange={onChange}
           />
         )}
-      </Grid2>
-    </Grid2>
+      </Grid>
+    </Grid>
   )
 });
 
 
 Footer.displayName = "Footer";
 export default Footer;
-

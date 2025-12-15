@@ -1,5 +1,6 @@
 import { FC, memo, useState, useEffect, useCallback } from "react";
-import { Box, Grid2, TextField, Typography, Button, CircularProgress } from "@mui/material";
+import Grid from "@mui/material/Grid";
+import { Box, TextField, Typography, Button, CircularProgress } from "@mui/material";
 import { useForm } from "react-hook-form"
 import { useNotification } from "../utils/state/state";
 import Animation from "../components/animation/animation";
@@ -62,7 +63,7 @@ const ContactUs: FC = memo(() => {
         maxWidth: "1200px",
         margin: "0 auto",
       }}>
-        <Grid2
+        <Grid
           container
           spacing={2}
           direction="row"
@@ -73,7 +74,7 @@ const ContactUs: FC = memo(() => {
             minHeight: "100vh",
           }}
         >
-          <Grid2
+          <Grid
             size={{
               xs: 12,
               md: 12,
@@ -103,8 +104,8 @@ const ContactUs: FC = memo(() => {
                 Got a question or need assistance? We’re here to help!
               </Typography>
             </Animation>
-          </Grid2>
-          <Grid2 size={{ xs: 'grow', md: 6 }} offset={{ md: 3 }}>
+          </Grid>
+          <Grid size={{ xs: 'grow', md: 6 }} offset={{ md: 3 }}>
             <form onSubmit={handleSubmit(onSubmit)}>
               <TextField 
                 fullWidth
@@ -163,10 +164,10 @@ const ContactUs: FC = memo(() => {
                 )}
               </Button>
             </form>
-          </Grid2>
-        </Grid2>
+          </Grid>
+        </Grid>
         
-        <Grid2
+        <Grid
           container
           spacing={2}
           direction="row"
@@ -177,7 +178,7 @@ const ContactUs: FC = memo(() => {
             padding: "8px",
           }}
         >
-          <Grid2
+          <Grid
              size={{
               xs: 12,
               md: 6,
@@ -192,8 +193,8 @@ const ContactUs: FC = memo(() => {
             >
               Copyright © {new Date().getFullYear()} MySMI.UK
             </Typography>
-          </Grid2>
-        </Grid2>
+          </Grid>
+        </Grid>
       </Box>
     </Layout>
   )

@@ -1,5 +1,6 @@
 import { FC , memo} from "react";
-import { Box, Button, Grid2, Typography } from "@mui/material";
+import Grid from "@mui/material/Grid";
+import { Box, Button, Typography } from "@mui/material";
 import Animation from "../../components/animation/animation";
 import Layout from "../../components/layout/layout";
 
@@ -10,7 +11,7 @@ const AboutUs: FC = memo(() => {
         maxWidth: "1200px",
         margin: "0 auto",
       }}>
-        <Grid2
+        <Grid
           container
           spacing={2}
           direction="row"
@@ -21,7 +22,7 @@ const AboutUs: FC = memo(() => {
             minHeight: "100vh",
           }}
         >
-          <Grid2
+          <Grid
             size={{
               xs: 12,
               md: 12,
@@ -56,8 +57,8 @@ const AboutUs: FC = memo(() => {
                 At MySMI.UK, we specialize in providing reliable, professional, and fast car locksmith services.
               </Typography>
             </Animation>
-          </Grid2>
-          <Grid2
+          </Grid>
+          <Grid
             size={{
               xs: 12,
               md: 12,
@@ -75,8 +76,8 @@ const AboutUs: FC = memo(() => {
                 We understand how frustrating it can be to lose your car keys, get locked out, or face a malfunctioning lock. At MySMI.uk, we provide fast, reliable, and affordable car locksmith services to get you back on the road in no time. Whether it’s a key replacement, lock repair, or emergency assistance, our skilled professionals are here to help 24/7.
               </Typography>
             </Animation>
-          </Grid2>
-          <Grid2
+          </Grid>
+          <Grid
             size={{
               xs: 12,
               md: 12,
@@ -114,8 +115,8 @@ const AboutUs: FC = memo(() => {
                 }}>+447516000030</Button> for immediate assistance!
               </Typography>
             </Animation>
-          </Grid2>
-        </Grid2>
+          </Grid>
+        </Grid>
       </Box>
     </Layout>
   )

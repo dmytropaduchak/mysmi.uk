@@ -1,6 +1,6 @@
 import { FC, memo } from "react";
-import { Avatar, Box, Grid2, Link, Typography, useMediaQuery, useTheme } from "@mui/material";
-import Layout from "../components/layout/layout";
+import { Grid, Avatar, Box, Link, Typography, useMediaQuery, useTheme } from "@mui/material";
+// import Layout from "../components/layout/layout";
 import WelcomeText from "../components/welcome/welcome-text";
 import WelcomeForm from "../components/welcome/welcome-form";
 
@@ -9,14 +9,12 @@ const Page: FC = memo(() => {
   const mdMatch = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
-    <Layout background>
-      <Box
-        sx={{
-          maxWidth: "1200px",
-          margin: "0 auto",
-        }}
-      >
-        <Grid2
+    <>
+      <Box sx={{
+        // maxWidth: "1200px",
+        // margin: "0 auto",
+      }}>
+        {/* <Grid
           container
           spacing={2}
           direction="row"
@@ -34,15 +32,15 @@ const Page: FC = memo(() => {
             }),
           }}
         >
-          <Grid2
+          <Grid
             size={{
               xs: 12,
               md: 7,
             }}
           >
             <WelcomeText />
-          </Grid2>
-          <Grid2
+          </Grid>
+          <Grid
             size={{
               xs: 12,
               md: 5,
@@ -80,10 +78,10 @@ const Page: FC = memo(() => {
               </Link>
             )}
             <WelcomeForm />
-          </Grid2>
-        </Grid2>
+          </Grid>
+        </Grid> */}
       </Box>
-    </Layout>
+    </>
   );
 });
 
