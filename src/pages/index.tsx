@@ -54,10 +54,7 @@ export default function Page() {
           zIndex: 0,
           pointerEvents: "none",
           background: `url('/assets/background${img}.jpg') no-repeat center / cover`,
-          filter:
-            data.theme === THEMES.DARK
-              ? "brightness(55%) saturate(110%) grayscale(100%) blur(4px)"
-              : "brightness(140%) contrast(90%) saturate(115%) grayscale(100%) blur(2px)",
+          filter: "brightness(55%) saturate(110%) grayscale(100%) blur(4px)",
           transform: "scale(1.06)",
           opacity: data.theme === THEMES.DARK ? 1 : 0.95,
         },
@@ -157,49 +154,61 @@ export default function Page() {
                 fontWeight: 300,
               }}>Fast, reliable mobile auto locksmith services for all car lock and key emergencies - trusted by drivers across Greater London, Hertfordshire and Buckinghamshire.</Typography>
             </Box>
-
-            <Button variant="contained" size="large" href={`tel:+${process.env.NEXT_PUBLIC_PHONE_NUMBER}`} onClick={onClickEmergencyCall} sx={{
+            <Box sx={{
               marginTop: 3,
-              borderRadius: 16,
-              paddingRight: 2,
-              paddingLeft: 2,
-              color: "white",
-              boxShadow: (theme) => `0 0 22px ${alpha(theme.palette.primary.main, 0.45)}`,
-              "&:hover": {
-                boxShadow: (theme) => `0 0 44px ${alpha(theme.palette.primary.main, 0.45)}`,
-              },
-              "@keyframes clickMe": {
-                "0%, 100%": { transform: "translateY(0) scale(1)" },
-                "50%": { transform: "translateY(3px) scale(1.04)" },
-              },
-              animation: "clickMe 1.2s ease-in-out infinite",
-              transformOrigin: "center",
-              willChange: "transform",
-              "&:active": { transform: "translateY(1px) scale(0.98)" },
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
               [theme.breakpoints.down('md')]: {
-                width: "100%",
+               flexDirection: "column",
+               width: "100%"
               },
             }}>
-              <PhoneInTalk fontSize="small" sx={{
-                marginRight: 1,
-              }} /> 
-              Emergency call
-            </Button>
+              <Button variant="contained" size="large" href={`tel:+${process.env.NEXT_PUBLIC_PHONE_NUMBER}`} onClick={onClickEmergencyCall} sx={{
+                borderRadius: 16,
+                paddingRight: 2,
+                paddingLeft: 2,
+                // marginBottom: 2,
+                color: "white",
+                boxShadow: (theme) => `0 0 22px ${alpha(theme.palette.primary.main, 0.45)}`,
+                "&:hover": {
+                  boxShadow: (theme) => `0 0 44px ${alpha(theme.palette.primary.main, 0.45)}`,
+                },
+                "@keyframes clickMe": {
+                  "0%, 100%": { transform: "scale(1)" },
+                  "50%": { transform: "scale(1.05)" },
+                },
+                animation: "clickMe 1.2s ease-in-out infinite",
+                transformOrigin: "center",
+                willChange: "transform",
+                "&:active": { transform: "scale(0.98)" },
+                [theme.breakpoints.down('md')]: {
+                  width: "100%",
+                },
+              }}>
+                <PhoneInTalk fontSize="small" sx={{
+                  marginRight: 1,
+                }} /> 
+                Emergency call
+              </Button>
 
-            <Button variant="outlined" size="large" onClick={onClickQuickBooking} sx={{
-              marginTop: 2,
-              borderRadius: 16,
-              paddingRight: 2,
-              paddingLeft: 2,
-              [theme.breakpoints.down('md')]: {
-                width: "100%",
-              },
-            }}>
-              <AutoAwesome fontSize="small" sx={{
-                marginRight: 1,
-              }} /> 
-              Quick booking
-            </Button>
+              <Button variant="outlined" size="large" onClick={onClickQuickBooking} sx={{
+                borderRadius: 16,
+                paddingRight: 2,
+                paddingLeft: 2,
+                marginLeft: 2,
+                [theme.breakpoints.down('md')]: {
+                  width: "100%",
+                  marginLeft: 0,
+                  marginTop: 2,
+                },
+              }}>
+                <AutoAwesome fontSize="small" sx={{
+                  marginRight: 1,
+                }} /> 
+                Quick booking
+              </Button>
+            </Box>
           </Box>
           <Footer />
         </Box>

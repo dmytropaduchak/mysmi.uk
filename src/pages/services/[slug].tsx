@@ -125,17 +125,9 @@ export default function Service({ slug }: Props) {
                       position: "absolute",
                       inset: 0,
                       background: `url('/assets/services/${service?.slug}${img}.jpg') no-repeat center / cover`,
-                      filter: "grayscale(1) blur(1.5px) contrast(1.05) brightness(0.9)",
+                      filter: `grayscale(1) blur(1.5px) contrast(1.05) brightness(${data.theme === THEMES.DARK ? 0.9 : 0.5})`,
                       transform: "scale(1.02)",
                       transition: "filter 200ms ease",
-                    }}
-                  />
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      inset: 0,
-                      background:
-                        "linear-gradient(0deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 55%, rgba(0,0,0,0.65) 100%)",
                     }}
                   />
                   <CardContent
