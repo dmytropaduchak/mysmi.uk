@@ -1,6 +1,6 @@
 import Header from "../../components/header";
 import { atom, THEMES } from "../../atom/atom";
-import { Grid, Box, Typography, Link } from "@mui/material";
+import { Box, Typography, Link } from "@mui/material";
 import { useAtom } from "jotai";
 import { useCallback, useMemo } from "react";
 import Footer from "../../components/footer";
@@ -40,8 +40,16 @@ export default function AboutUs() {
         justifyContent: "center",
         alignItems: "center",
       }}>
-        <Grid container spacing={2} alignItems="center">
-          <Grid size={{ xs: 12, md: 6}}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            gap: { xs: 3, md: 6 },
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          <Box sx={{ flex: 1, width: "100%" }}>
             <Typography variant="h1"
               sx={{
                 mb: 1,
@@ -86,8 +94,8 @@ export default function AboutUs() {
               </Link>{" "}
               for immediate assistance!
             </Typography>
-          </Grid>
-          <Grid size={{ xs: 12, md: 6}}>
+          </Box>
+          <Box sx={{ flex: 1, width: "100%" }}>
             <Box sx={{ display: "flex", justifyContent: "center" }}>
               <Box
                 sx={{
@@ -112,8 +120,8 @@ export default function AboutUs() {
                 />
               </Box>
             </Box>
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
       </Box>
       <Footer />
     </Box>

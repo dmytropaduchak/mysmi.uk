@@ -22,12 +22,12 @@ export default function Page() {
 
   const onClickQuickBooking = useCallback(() => {
 
-  }, [])
+  }, []);
 
   const img = useMemo(() => {
     const imgs = [0,1,2,4];
     return imgs[Math.floor(Math.random() * imgs.length)];
-  }, [])
+  }, []);
 
  return (
     <>
