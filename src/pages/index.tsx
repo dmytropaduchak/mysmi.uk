@@ -209,6 +209,7 @@ export default function Page() {
                 Quick booking
               </Button>
             </Box>
+            <script defer async src='https://cdn.trustindex.io/loader.js?c02160a6097b517c325648f580b'></script>
           </Box>
           <Footer />
         </Box>

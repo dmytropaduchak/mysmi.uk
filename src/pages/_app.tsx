@@ -94,7 +94,7 @@ function Main({ children }: { children: ReactNode }) {
         <Stack sx={{
           position: "fixed",
           zIndex: 1000,
-          left: "8px",
+          right: "8px",
           bottom: "8px",
           width: 380,
           [theme.breakpoints.down('sm')]: {
