@@ -1,11 +1,11 @@
 import { useCallback, useMemo } from "react";
 import { alpha } from "@mui/material/styles";
-import { Box, Typography, useTheme, Button } from "@mui/material";
+import { Box, Typography, useTheme, Button, Chip } from "@mui/material";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import { useAtom } from "jotai";
 import { atom, THEMES } from "../atom/atom";
-import { AutoAwesome, PhoneInTalk } from "@mui/icons-material";
+import { AutoAwesome, PhoneInTalk, SecurityOutlined } from "@mui/icons-material";
 
 export default function Page() {
   const theme = useTheme();
@@ -30,7 +30,9 @@ export default function Page() {
 
   return (
     <Box sx={{
-      minHeight: "100vh", 
+      minHeight: "100vh",
+      position: "relative",
+      overflow: "hidden",
       display: "flex",
       flexDirection: "column",
       "&::before": {
@@ -38,23 +40,15 @@ export default function Page() {
         position: "absolute",
         inset: 0,
         zIndex: 0,
+        pointerEvents: "none",
         background: `url('/assets/background${img}.jpg') no-repeat center / cover`,
         filter:
           data.theme === THEMES.DARK
-            ? "brightness(55%) saturate(110%)"
-            : "brightness(140%) contrast(90%) saturate(115%)",
+            ? "brightness(55%) saturate(110%) grayscale(100%) blur(4px)"
+            : "brightness(140%) contrast(90%) saturate(115%) grayscale(100%) blur(2px)",
+        transform: "scale(1.06)",
         opacity: data.theme === THEMES.DARK ? 1 : 0.95,
       },
-      "&::after": {
-        content: '""',
-        position: "absolute",
-        inset: 0,
-        background: "inherit",
-        filter:
-          data.theme === THEMES.DARK
-            ? "brightness(55%) saturate(110%) blur(4px)"
-            : "brightness(140%) contrast(90%) saturate(115%) blur(2px)",
-            }
     }}>
       <Box sx={{
         position: "relative",
@@ -71,17 +65,33 @@ export default function Page() {
           alignItems: "center",
           flexDirection: "column",
           textAlign: "center",
-          marginLeft: 2,
-          marginRight: 2,
+          paddingLeft: 2,
+          paddingRight: 2,
         }}>
           <Box sx={{
             maxWidth: 720,
+            position: "relative"
           }}>
+            <Box sx={{
+              position: "absolute",
+              left: 0,
+              top: -32,
+            }}>
+              <Chip
+                label="Trusted UK Auto Locksmith Experts"
+                color="secondary"
+                variant="outlined"
+                icon={<SecurityOutlined fontSize="small"/>}
+              />
+            </Box>
             <Typography variant="h1" sx={{
               fontWeight: 500,
               fontSize: 60,
               flexWrap: "wrap",
-            }}>Mobile Auto <Box component="span" sx={{ color: "primary.main" }}>Locksmiths</Box> for Car Key Emergencies</Typography>
+            }}>
+              Mobile Auto <Box component="span" sx={{ color: "primary.main" }}>Locksmiths</Box> for Car Key Emergencies  
+            </Typography>
+
             <Typography variant="body1" sx={{
               fontWeight: 300,
             }}>Fast, reliable mobile auto locksmith services for all car lock and key emergencies - trusted by drivers across London.</Typography>
