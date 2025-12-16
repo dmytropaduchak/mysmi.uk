@@ -4,7 +4,7 @@ import { Switch, FormControlLabel, Paper, Typography, TextField, Button, IconBut
 import { Place } from "@mui/icons-material";
 import { blue, yellow } from "@mui/material/colors";
 import { MuiTelInput } from "mui-tel-input";
-import Animation from '../animation/animation';
+// import Animation from '../animation/animation';
 import { useNotification } from "../../utils/state/state";
 
 const SERVICES = [
@@ -82,7 +82,7 @@ const WelcomeForm: FC = memo(() => {
   })), []);
 
   return (
-    <Animation direction="right">
+    // <Animation direction="right">
       <form onSubmit={handleSubmit(onSubmit)}>
         <Paper
           elevation={3}
@@ -294,7 +294,7 @@ const WelcomeForm: FC = memo(() => {
           </Box>
         </Paper>
       </form>
-    </Animation>
+    // </Animation>
   )
 });
 

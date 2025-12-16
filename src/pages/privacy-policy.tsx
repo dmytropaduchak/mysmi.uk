@@ -1,11 +1,11 @@
 import { FC, memo } from "react";
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
-import Layout from "../components/layout/layout";
+// import Layout from "../components/layout/layout";
 
 const PrivacyPolicy: FC = memo(() => {
   return (
-    <Layout>
+    // <Layout>
       <Box sx={{
         maxWidth: "1200px",
         margin: "0 auto",
@@ -250,7 +250,7 @@ const PrivacyPolicy: FC = memo(() => {
           </Accordion>
         </Box>
       </Box>
-    </Layout>
+    // </Layout>
   );
 });
 

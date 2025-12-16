@@ -1,5 +1,5 @@
 import type { AppProps } from "next/app";
-import { ReactNode, useState, useEffect } from "react";
+import { ReactNode, useState, useEffect, useMemo } from "react";
 import { AppCacheProvider } from '@mui/material-nextjs/v15-pagesRouter';
 import { ThemeProvider, createTheme, useTheme } from '@mui/material/styles';
 import { Roboto } from 'next/font/google';
@@ -11,10 +11,8 @@ import Head from "next/head";
 import { usePalette } from "../palette/palette";
 import { useAtom } from "jotai";
 import { atom } from "../atom/atom";
-// import { usePalette } from "../palette/palette";
-// import { LANGUAGES } from "../translation/translation";
-// import Ukraine from "../components/ukraine";
-// import Consent from "../components/consent";
+import Ukraine from "../components/ukraine";
+import Consent from "../components/consent";
 // import Message from "../components/message";
 
 const cssVariables = true;
@@ -104,9 +102,9 @@ function Main({ children }: { children: ReactNode }) {
             paddingRight: 1,
           },
         }} spacing={1}>
-          {/* <Consent />
+          <Consent />
           <Ukraine />
-          <Message /> */}
+          {/* <Message /> */}
         </Stack>
         {children}
       </Box>
@@ -126,15 +124,62 @@ function Body({ children }: { children: ReactNode }) {
   );
 }
 
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "MySMI.UK",
+  "url": "https://mysmi.uk",
+  "telephone": "+44 7516 000030",
+  "hasMap": "https://www.google.com/maps/place/MySMI.UK",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Hemel Hempstead",
+    "addressRegion": "London",
+    "addressCountry": "UK"
+  },
+  "areaServed": [
+    { "@type": "Place", "name": "Barnet, UK" },
+    { "@type": "Place", "name": "Harrow, UK" },
+    { "@type": "Place", "name": "Pinner, UK" },
+    { "@type": "Place", "name": "Slough, UK" },
+    { "@type": "Place", "name": "Chesham, UK" },
+    { "@type": "Place", "name": "Edgware, UK" },
+    { "@type": "Place", "name": "Enfield, UK" },
+    { "@type": "Place", "name": "Watford, UK" },
+    { "@type": "Place", "name": "Cheshunt, UK" },
+    { "@type": "Place", "name": "Hatfield, UK" },
+    { "@type": "Place", "name": "Harefield, UK" },
+    { "@type": "Place", "name": "Harpenden, UK" },
+    { "@type": "Place", "name": "Northwood, UK" },
+    { "@type": "Place", "name": "St Albans, UK" },
+    { "@type": "Place", "name": "Borehamwood, UK" },
+    { "@type": "Place", "name": "Potters Bar, UK" },
+    { "@type": "Place", "name": "Hemel Hempstead, UK" },
+    { "@type": "Place", "name": "Willesden, London, UK" },
+    { "@type": "Place", "name": "Welwyn Garden City, UK" }
+  ],
+  "serviceType": "Car Locksmith"
+};
+
 export default function _App(props: AppProps) {
   const { Component, pageProps } = props;
+
+  const __html = useMemo(() => {
+    return JSON.stringify(structuredData);
+  }, []);
+
   return (
     <AppCacheProvider {...props}>
       <Head>
         <link rel="icon" href="/icon" type="image/svg+xml" sizes="32x32" />
         <link rel="apple-touch-icon" href="/apple-icon" type="image/png" sizes="180x180" />
-        <meta name="apple-mobile-web-app-title" content="mySMI.uk" />
         <link rel="manifest" href="/site.webmanifest" />
+        <link rel="canonical" href="https://www.mysmi.uk/" />
+        
+        <meta name="apple-mobile-web-app-title" content="mySMI.uk" />
+        <meta name="robots" content="index, follow" />
+        
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html }} />
       </Head>
       <Body>
         <Component {...pageProps} />

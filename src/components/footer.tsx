@@ -1,5 +1,5 @@
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
-import { Typography, useTheme, Box, ClickAwayListener, Tooltip, Button, Link } from "@mui/material";
+import { Typography, useTheme, Box, ClickAwayListener, Tooltip, Link } from "@mui/material";
 import { useAtom } from "jotai";
 import { HexColorPicker } from "react-colorful";
 import { atom, THEMES } from "../atom/atom";
@@ -58,8 +58,6 @@ export default function Footer() {
   const onClickAboutUs = useCallback(() => {
     router.push("/about-us");
   }, [router]);
-
-  onClickAboutUs
 
   return (
     <Box sx={{

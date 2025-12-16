@@ -1,11 +1,11 @@
 import { FC, memo} from "react";
 import { Typography, Box, Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
-import Layout from "../components/layout/layout";
+// import Layout from "../components/layout/layout";
 
 const TermsAndConditions: FC = memo(() => {
   return (
-    <Layout>
+    // <Layout>
       <Box sx={{
         maxWidth: "1200px",
         margin: "0 auto",
@@ -231,7 +231,7 @@ const TermsAndConditions: FC = memo(() => {
           </Accordion>
         </Box>
       </Box>
-    </Layout>
+    // </Layout>
   )
 });
 

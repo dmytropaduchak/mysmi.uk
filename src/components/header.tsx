@@ -1,13 +1,17 @@
-import { Box, IconButton, Link, Typography, useTheme } from "@mui/material";
-import { useCallback } from "react";
+import { Box, Button, ClickAwayListener, Grow, IconButton, Link, Menu, MenuItem, MenuList, Paper, Popper, Tooltip, Typography, useTheme } from "@mui/material";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/router";
-import { Facebook, Instagram, WhatsApp } from "@mui/icons-material";
+import { ArrowDropDownOutlined, ArrowDropUpOutlined, Facebook, Instagram, MiscellaneousServicesOutlined, WhatsApp } from "@mui/icons-material";
 import { useAtom } from "jotai";
 import { atom } from "../atom/atom";
+import { SERVICES } from "../services/services";
 
 export default function Header() {
   const [data] = useAtom(atom);
-
+  const [open, setOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<HTMLElement>();
+  
+  const anchorRef = useRef<HTMLButtonElement>(null);
   const router = useRouter();
   const theme = useTheme();
 
@@ -21,6 +25,30 @@ export default function Header() {
       keepalive: true,
     });
   }, []);
+
+  const onClickServices = useCallback((ev: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(ev.currentTarget);
+  }, [setAnchorEl]);
+
+  // const open = useMemo(() => {
+  //   return Boolean(anchorEl);
+  // }, [anchorEl]);
+
+  // const onClose = useCallback(() => {
+  //   setAnchorEl(undefined);
+  // }, [setAnchorEl]);
+
+  const onClose = useCallback(() => {
+    setOpen(false);
+  }, [setOpen]);
+
+  const onClickOpen = useCallback(() => {
+    setOpen(true);
+  }, [setOpen]);
+
+  const onClickAway = useCallback(() => {
+    setOpen(false);
+  }, [setOpen]);
 
   return (
     <Box sx={{
@@ -73,7 +101,55 @@ export default function Header() {
         flexDirection: "row",
         justifyContent: "end",
         alignItems: "center",
+        "& .MuiTooltip-tooltip": {
+          padding: 0,
+        }
       }}>
+        <ClickAwayListener onClickAway={onClickAway}>
+          <div>
+            <Tooltip
+              onClose={onClose}
+              open={open}
+              arrow
+              disableFocusListener
+              disableHoverListener
+              disableTouchListener
+              title={
+                <MenuList autoFocusItem={open} sx={{
+                  padding: 0
+                }}>
+                  {SERVICES.map((i, key) => (
+                    <MenuItem key={key} sx={{
+                      fontWeight: 200,
+                      padding: 1,
+                    }} onClick={() => {
+                      setAnchorEl(undefined);
+                      router.push(`/services/${i.slug}`);
+                    }}>{i.name}</MenuItem>
+                  ))}
+                </MenuList>
+              }
+              slotProps={{
+                popper: {
+                  disablePortal: true,
+                },
+              }}
+            >
+              <Button
+                variant="text"
+                color={open ? "primary" :"secondary"}
+                onClick={onClickOpen}
+                startIcon={<MiscellaneousServicesOutlined color={open ? "primary" : "secondary"} fontSize="small" />}
+                sx={{
+                  borderRadius: 16,
+                  paddingRight: 2,
+                  paddingLeft: 2,
+                }}>
+                Services
+              </Button>
+            </Tooltip>
+          </div>
+        </ClickAwayListener>
         <IconButton color="secondary" href="https://www.instagram.com/" target="_blank">
           <Instagram fontSize="small"/>
         </IconButton>

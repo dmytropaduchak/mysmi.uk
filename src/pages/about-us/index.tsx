@@ -21,7 +21,6 @@ export default function AboutUs() {
       : 'radial-gradient(circle at 50% 14em, #ffffff 0%, #eeeeee 60%, #cccccc 100%)';
   }, [data]);
 
-
   return (
     <Box sx={{
       backgroundImage,
