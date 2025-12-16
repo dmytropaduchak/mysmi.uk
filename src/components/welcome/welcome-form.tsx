@@ -5,7 +5,7 @@ import { Place } from "@mui/icons-material";
 import { blue, yellow } from "@mui/material/colors";
 import { MuiTelInput } from "mui-tel-input";
 // import Animation from '../animation/animation';
-import { useNotification } from "../../utils/state/state";
+// import { useNotification } from "../../utils/state/state";
 
 const SERVICES = [
   'All Key Lost',
@@ -32,7 +32,7 @@ const WelcomeForm: FC = memo(() => {
   const [time, setTime] = useState<number>(0);
   const theme = useTheme();
   const mdMatch = useMediaQuery(theme.breakpoints.down('md'));
-  const notification = useNotification();
+  // const notification = useNotification();
   const { register, handleSubmit, control, watch, formState, reset } = useForm<Data>();
 
   useEffect(() => {
@@ -61,20 +61,20 @@ const WelcomeForm: FC = memo(() => {
       return response.json();
     })
     .then(() => {
-      notification({
-        type: "success",
-        text: "Thank you! Your request has been received. Our team will review your details and get back to you with a personalized quote shortly.",
-      });
+      // notification({
+      //   type: "success",
+      //   text: "Thank you! Your request has been received. Our team will review your details and get back to you with a personalized quote shortly.",
+      // });
       setLoading(false);
     })
     .catch((error) => {
-      notification({
-        type: "error",
-        text: error.message,
-      });
+      // notification({
+      //   type: "error",
+      //   text: error.message,
+      // });
       setLoading(false);
     });
-  }, [reset, setLoading, setTime, notification]);
+  }, [reset, setLoading, setTime,]);
 
   const options = useMemo(() => SERVICES.map((i) => ({
     title: i,

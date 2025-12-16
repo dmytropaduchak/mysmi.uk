@@ -127,10 +127,10 @@ function Body({ children }: { children: ReactNode }) {
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "name": "MySMI.UK",
+  "name": "mySMI.uk",
   "url": "https://mysmi.uk",
   "telephone": "+44 7516 000030",
-  "hasMap": "https://www.google.com/maps/place/MySMI.UK",
+  "hasMap": "https://www.google.com/maps/place/mySMI.uk",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Hemel Hempstead",

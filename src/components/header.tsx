@@ -1,7 +1,7 @@
-import { Box, Button, ClickAwayListener, Grow, IconButton, Link, Menu, MenuItem, MenuList, Paper, Popper, Tooltip, Typography, useTheme } from "@mui/material";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { Box, Button, ClickAwayListener, IconButton, Link, MenuItem, MenuList, Tooltip, Typography, useTheme } from "@mui/material";
+import { useCallback, useState } from "react";
 import { useRouter } from "next/router";
-import { ArrowDropDownOutlined, ArrowDropUpOutlined, Facebook, Instagram, MiscellaneousServicesOutlined, WhatsApp } from "@mui/icons-material";
+import { Facebook, Instagram, MiscellaneousServicesOutlined, WhatsApp } from "@mui/icons-material";
 import { useAtom } from "jotai";
 import { atom } from "../atom/atom";
 import { SERVICES } from "../services/services";
@@ -9,9 +9,7 @@ import { SERVICES } from "../services/services";
 export default function Header() {
   const [data] = useAtom(atom);
   const [open, setOpen] = useState(false);
-  const [anchorEl, setAnchorEl] = useState<HTMLElement>();
-  
-  const anchorRef = useRef<HTMLButtonElement>(null);
+
   const router = useRouter();
   const theme = useTheme();
 
@@ -25,18 +23,6 @@ export default function Header() {
       keepalive: true,
     });
   }, []);
-
-  const onClickServices = useCallback((ev: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(ev.currentTarget);
-  }, [setAnchorEl]);
-
-  // const open = useMemo(() => {
-  //   return Boolean(anchorEl);
-  // }, [anchorEl]);
-
-  // const onClose = useCallback(() => {
-  //   setAnchorEl(undefined);
-  // }, [setAnchorEl]);
 
   const onClose = useCallback(() => {
     setOpen(false);
@@ -123,8 +109,8 @@ export default function Header() {
                       fontWeight: 200,
                       padding: 1,
                     }} onClick={() => {
-                      setAnchorEl(undefined);
                       router.push(`/services/${i.slug}`);
+                      setOpen(false);
                     }}>{i.name}</MenuItem>
                   ))}
                 </MenuList>

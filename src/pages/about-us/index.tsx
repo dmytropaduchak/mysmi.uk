@@ -72,7 +72,7 @@ export default function AboutUs() {
             </Box>
 
             <Typography variant="body1" color="text.secondary" sx={{ mt: 2 }}>
-              Don’t let car lock issues slow you down. Trust MySMI.uk to deliver a seamless experience.
+              Don’t let car lock issues slow you down. Trust mySMI.uk to deliver a seamless experience.
             </Typography>
 
             <Typography variant="body1" color="text.secondary" sx={{ mt: 2 }}>

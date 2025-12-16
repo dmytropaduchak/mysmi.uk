@@ -12,7 +12,7 @@ export async function POST(nextRequest: NextRequest) {
     const json = await nextRequest.json();
     console.log(json)
     // const { data, error } = await resend.emails.send({
-    //   from: "MySMI.UK <quote@mysmi.uk>",
+    //   from: "mySMI.uk <quote@mysmi.uk>",
     //   to: ["serhijkoschelnik@gmail.com"],
     //   subject: "Quote Request",
     //   react: TemplateEmail(json) as ReactElement,

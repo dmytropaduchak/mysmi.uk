@@ -1,2 +1,2 @@
-# MySMI.UK
+# mySMI.uk
 

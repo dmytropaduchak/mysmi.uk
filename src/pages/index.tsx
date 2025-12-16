@@ -32,12 +32,12 @@ export default function Page() {
  return (
     <>
       <Head>
-        <title>Trusted Mobile Auto Locksmith Service | MySMI.uk</title>
-        <meta name="description" content="Locked out or lost your car keys? MySMI.uk provides fast, reliable, and professional mobile auto locksmith services. Available 24/7." />
+        <title>Trusted Mobile Auto Locksmith Service | mySMI.uk</title>
+        <meta name="description" content="Locked out or lost your car keys? mySMI.uk provides fast, reliable, and professional mobile auto locksmith services. Available 24/7." />
         <meta name="keywords" content="emergency car lockout, locksmith service, car locksmith, auto locksmith, car key replacement, emergency locksmith, emergency car unlocking, car lockout service, open car fast, locked keys in car, fast auto locksmith, urgent car door opening, 24/7 car locksmith, mobile car unlocking, broken key removal, quick vehicle access, keyless car entry service" />
         
-        <meta property="og:title" content="Trusted Mobile Auto Locksmith Service | MySMI.uk"/>
-        <meta property="og:description" content="Locked out or lost your car keys? MySMI.uk provides fast, reliable, and professional mobile auto locksmith services. Available 24/7."/>
+        <meta property="og:title" content="Trusted Mobile Auto Locksmith Service | mySMI.uk"/>
+        <meta property="og:description" content="Locked out or lost your car keys? mySMI.uk provides fast, reliable, and professional mobile auto locksmith services. Available 24/7."/>
         <meta property="og:url" content="https://www.mysmi.uk/"/>
         <meta property="og:type" content="website"/>
       </Head>
