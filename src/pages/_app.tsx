@@ -124,49 +124,61 @@ function Body({ children }: { children: ReactNode }) {
   );
 }
 
-const structuredData = {
+const businessData = {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@type": ["LocalBusiness", "Locksmith"],
   "name": "mySMI.uk",
   "url": "https://mysmi.uk",
-  "telephone": "+44 7516 000030",
-  "hasMap": "https://www.google.com/maps/place/mySMI.uk",
+  "telephone": "+447516000030",
+  "priceRange": "££",
+  "image": "https://mysmi.uk/og-image.jpg",
+  "description": "24/7 mobile car locksmith providing emergency car key replacement and lockout services in Watford, North London and surrounding areas.",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Hemel Hempstead",
-    "addressRegion": "London",
-    "addressCountry": "UK"
+    "addressRegion": "Hertfordshire",
+    "addressCountry": "GB"
   },
-  "areaServed": [
-    { "@type": "Place", "name": "Barnet, UK" },
-    { "@type": "Place", "name": "Harrow, UK" },
-    { "@type": "Place", "name": "Pinner, UK" },
-    { "@type": "Place", "name": "Slough, UK" },
-    { "@type": "Place", "name": "Chesham, UK" },
-    { "@type": "Place", "name": "Edgware, UK" },
-    { "@type": "Place", "name": "Enfield, UK" },
-    { "@type": "Place", "name": "Watford, UK" },
-    { "@type": "Place", "name": "Cheshunt, UK" },
-    { "@type": "Place", "name": "Hatfield, UK" },
-    { "@type": "Place", "name": "Harefield, UK" },
-    { "@type": "Place", "name": "Harpenden, UK" },
-    { "@type": "Place", "name": "Northwood, UK" },
-    { "@type": "Place", "name": "St Albans, UK" },
-    { "@type": "Place", "name": "Borehamwood, UK" },
-    { "@type": "Place", "name": "Potters Bar, UK" },
-    { "@type": "Place", "name": "Hemel Hempstead, UK" },
-    { "@type": "Place", "name": "Willesden, London, UK" },
-    { "@type": "Place", "name": "Welwyn Garden City, UK" }
-  ],
-  "serviceType": "Car Locksmith"
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday","Tuesday","Wednesday",
+      "Thursday","Friday","Saturday","Sunday"
+    ],
+    "opens": "00:00",
+    "closes": "23:59"
+  },
+  "areaServed": {
+    "@type": "AdministrativeArea",
+    "name": "Watford, North London, Hertfordshire"
+  },
+  "serviceOffered": {
+    "@type": "Service",
+    "name": "Mobile Car Locksmith",
+    "serviceType": "Emergency car locksmith",
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceLocation": {
+        "@type": "Place",
+        "name": "Mobile service"
+      }
+    }
+  },
+  "sameAs": [
+    "https://www.facebook.com/profile.php?id=61569306385603",
+    "https://maps.app.goo.gl/6VmFWRUF6S4zhC2z9"
+  ]
+};
+
+const webSiteData = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "url": "https://mysmi.uk",
+  "name": "mySMI.uk"
 };
 
 export default function _App(props: AppProps) {
   const { Component, pageProps } = props;
-
-  const __html = useMemo(() => {
-    return JSON.stringify(structuredData);
-  }, []);
 
   return (
     <AppCacheProvider {...props}>
@@ -179,7 +191,13 @@ export default function _App(props: AppProps) {
         <meta name="apple-mobile-web-app-title" content="mySMI.uk" />
         <meta name="robots" content="index, follow" />
         
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{
+          __html: JSON.stringify(businessData),
+        }}/>
+
+        <script type="application/ld+json" dangerouslySetInnerHTML={{
+          __html: JSON.stringify(webSiteData),
+        }} />
       </Head>
       <Body>
         <Component {...pageProps} />

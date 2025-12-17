@@ -8,9 +8,9 @@ import { useAtom } from "jotai";
 import { atom, THEMES } from "../../atom/atom";
 import { useCallback, useMemo } from "react";
 import { AutoAwesome, PhoneInTalk } from "@mui/icons-material";
-import SERVICES from "../../services/services.json";
+import LOCATIONS from "../../locations/locations.json";
 
-export const services = new Map(SERVICES.map((i) => [i.slug, i]));
+export const locations = new Map(LOCATIONS.map((i) => [i.slug, i]));
 
 export const getServerSideProps = (async (context) => {
   return { props: context.params! };
@@ -20,13 +20,13 @@ interface Props {
   slug: string;
 }
 
-export default function Service({ slug }: Props) {
+export default function Location({ slug }: Props) {
   const [data] = useAtom(atom);
 
   const theme = useTheme();
 
-  const service = useMemo(() => {
-    return services.get(slug);
+  const location = useMemo(() => {
+    return locations.get(slug);
   }, [slug]);
 
   const backgroundImage = useMemo(() => {
@@ -42,11 +42,6 @@ export default function Service({ slug }: Props) {
     });
   }, []);
 
-  const img = useMemo(() => {
-    const imgs = [1,2];
-    return imgs[Math.floor(Math.random() * imgs.length)];
-  }, []);
-
   const onClickQuickBooking = useCallback(() => {
 
   }, []);
@@ -54,34 +49,30 @@ export default function Service({ slug }: Props) {
   return (
     <>
       <Head>
-        <title>{service?.metaTitle}</title>
-        <meta name="description" content={service?.metaDescription} />
-        <meta name="keywords" content={service?.metaKeywords}/>
+        <title>{location?.metaTitle}</title>
+        <meta name="description" content={location?.metaDescription} />
+        <meta name="keywords" content={location?.metaKeywords}/>
         
-        <script type="application/ld+json" dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Service",
-            "name": service?.name,
-            "serviceType": service?.name?.toLocaleLowerCase(),
-            "provider": {
-              "@type": "Locksmith",
-              "name": "mySMI.uk",
-              "url": "https://mysmi.uk"
-            },
-            "areaServed": {
-              "@type": "AdministrativeArea",
-              "name": "Watford, North London, Hertfordshire"
-            },
-            "availableChannel": {
-              "@type": "ServiceChannel",
-              "serviceLocation": {
-                "@type": "Place",
-                "name": "Mobile service"
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Place",
+              "name": location?.name,
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": location?.name,
+                "addressRegion": "Hertfordshire",
+                "addressCountry": "GB"
+              },
+              "containedInPlace": {
+                "@type": "AdministrativeArea",
+                "name": "Hertfordshire"
               }
-            }
-          }),
-        }}/>
+            })
+          }}
+        />
       </Head>
       <Box
         sx={{
@@ -115,24 +106,24 @@ export default function Service({ slug }: Props) {
                   md: "left",
                 },
               }}>
-                {service?.name}
+                {location?.name}
               </Typography>
               <Typography
                 variant="body1"
                 color="text.secondary"
                 sx={{ mb: 3, textAlign: { xs: "center", md: "left" } }}
               >
-                {service?.subtitle}
+                {location?.subtitle}
               </Typography>
 
               <Typography variant="h2" sx={{
                 fontSize: "1.5rem",
                 mb: 2,
               }}>
-                {service?.title}
+                {location?.title}
               </Typography>
               <Typography variant="body1" color="text.secondary">
-                {service?.description}
+                {location?.description}
               </Typography>
             </Box>
 
@@ -151,7 +142,7 @@ export default function Service({ slug }: Props) {
                     sx={{
                       position: "absolute",
                       inset: 0,
-                      background: `url('/assets/services/${service?.slug}${img}.jpg') no-repeat center / cover`,
+                      background: `url('/assets/locations/${location?.slug}.jpg') no-repeat center / cover`,
                       filter: `grayscale(1) blur(1.5px) contrast(1.05) brightness(${data.theme === THEMES.DARK ? 0.3 : 0.5})`,
                       transform: "scale(1.02)",
                       transition: "filter 200ms ease",

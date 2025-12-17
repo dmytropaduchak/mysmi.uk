@@ -1,3 +1,6 @@
+const locations = require("./src/locations/locations.json");
+const services = require("./src/services/services.json");
+
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
   exclude: ["/icon", "/apple-icon"],
@@ -6,8 +9,14 @@ module.exports = {
   generateRobotsTxt: true,
   generateIndexSitemap: false,
   additionalPaths: async (config) => [
-    ...["car-key-replacement", "car-unlocking", "spare-car-keys", "ignition-barrel-replacement", "car-key-programming", "car-key-repair"].map((path) => ({
-      loc: `/services/${path}`,
+    ...services.map((i) => ({
+      loc: `/services/${i.slug}`,
+      changefreq: config.changefreq,
+      priority: 0.9,
+      lastmod: new Date().toISOString(),
+    })),
+    ...locations.map((i) => ({
+      loc: `/locations/${i.slug}`,
       changefreq: config.changefreq,
       priority: 0.9,
       lastmod: new Date().toISOString(),

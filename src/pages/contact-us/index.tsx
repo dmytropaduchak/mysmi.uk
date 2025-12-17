@@ -105,8 +105,8 @@ export default function ContactUs() {
                 WhatsApp
               </Link>{" "}
               or email{" "}
-              <Link underline="none" href="mailto:contact@mysmi.uk" sx={{ "&:hover": { color: "primary.main" } }}>
-                contact@mysmi.uk
+              <Link underline="none" href={`mailto:${process.env.NEXT_PUBLIC_EMAIL}`} sx={{ "&:hover": { color: "primary.main" } }}>
+                {process.env.NEXT_PUBLIC_EMAIL}
               </Link>
               . If you email us, we aim to respond within 1-2 business days.
             </Typography>
