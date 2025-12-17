@@ -1,6 +1,6 @@
 {
   "name": "mySMI.uk",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "postbuild": "next-sitemap",
@@ -30,8 +30,7 @@
     "react": "19.1.0",
     "react-colorful": "^5.6.1",
     "react-dom": "19.1.0",
-    "react-hook-form": "^7.54.2",
-    "resend": "^4.1.1"
+    "react-hook-form": "^7.54.2"
   },
   "devDependencies": {
     "@types/node": "^20",
