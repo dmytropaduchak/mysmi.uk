@@ -58,6 +58,8 @@ export default function Service({ slug }: Props) {
         <meta name="description" content={service?.metaDescription} />
         <meta name="keywords" content={service?.metaKeywords}/>
         
+        <link rel="canonical" href={`https://mysmi.uk/services/${service?.slug}`}/>
+        
         <script type="application/ld+json" dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",

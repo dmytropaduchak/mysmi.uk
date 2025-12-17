@@ -53,26 +53,25 @@ export default function Location({ slug }: Props) {
         <meta name="description" content={location?.metaDescription} />
         <meta name="keywords" content={location?.metaKeywords}/>
         
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Place",
-              "name": location?.name,
-              "address": {
-                "@type": "PostalAddress",
-                "addressLocality": location?.name,
-                "addressRegion": "Hertfordshire",
-                "addressCountry": "GB"
-              },
-              "containedInPlace": {
-                "@type": "AdministrativeArea",
-                "name": "Hertfordshire"
-              }
-            })
-          }}
-        />
+        <link rel="canonical" href={`https://mysmi.uk/lcoations/${location?.slug}`}/>
+
+        <script type="application/ld+json" dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Place",
+            "name": location?.name,
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": location?.name,
+              "addressRegion": "Hertfordshire",
+              "addressCountry": "GB"
+            },
+            "containedInPlace": {
+              "@type": "AdministrativeArea",
+              "name": "Hertfordshire"
+            }
+          }),
+        }}/>
       </Head>
       <Box
         sx={{
