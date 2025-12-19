@@ -5,23 +5,20 @@ import Header from "../components/header";
 import Footer from "../components/footer";
 import { useAtom } from "jotai";
 import { atom, THEMES } from "../atom/atom";
-import { AutoAwesome, PhoneInTalk, SecurityOutlined } from "@mui/icons-material";
+import { PhoneInTalk, SecurityOutlined } from "@mui/icons-material";
 import Head from "next/head";
+import Booking from "../components/booking";
 
 export default function Page() {
   const theme = useTheme();
 
   const [data] = useAtom(atom);
 
-  const onClickEmergencyCall = useCallback(() => {
+  const onClickCallNow = useCallback(() => {
     fetch("/api/phonecall", {
       method: "POST",
       keepalive: true,
     });
-  }, []);
-
-  const onClickQuickBooking = useCallback(() => {
-
   }, []);
 
   const img = useMemo(() => {
@@ -159,16 +156,18 @@ export default function Page() {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              mt: 3,
+              gap: 2,
+              flexWrap: "wrap",
               [theme.breakpoints.down('md')]: {
                flexDirection: "column",
                width: "100%"
               },
             }}>
-              <Button variant="contained" size="large" href={`tel:+${process.env.NEXT_PUBLIC_PHONE_NUMBER}`} onClick={onClickEmergencyCall} sx={{
+              <Button variant="contained" size="large" href={`tel:+${process.env.NEXT_PUBLIC_PHONE_NUMBER}`} onClick={onClickCallNow} sx={{
                 borderRadius: 16,
-                paddingRight: 2,
+                paddingRight: 3,
                 paddingLeft: 2,
-                // marginBottom: 2,
                 color: "white",
                 boxShadow: (theme) => `0 0 22px ${alpha(theme.palette.primary.main, 0.45)}`,
                 "&:hover": {
@@ -189,25 +188,10 @@ export default function Page() {
                 <PhoneInTalk fontSize="small" sx={{
                   marginRight: 1,
                 }} /> 
-                Emergency call
+                Call now
               </Button>
 
-              <Button variant="outlined" size="large" onClick={onClickQuickBooking} sx={{
-                borderRadius: 16,
-                paddingRight: 2,
-                paddingLeft: 2,
-                marginLeft: 2,
-                [theme.breakpoints.down('md')]: {
-                  width: "100%",
-                  marginLeft: 0,
-                  marginTop: 2,
-                },
-              }}>
-                <AutoAwesome fontSize="small" sx={{
-                  marginRight: 1,
-                }} /> 
-                Quick booking
-              </Button>
+              <Booking />
             </Box>
             <script defer async src='https://cdn.trustindex.io/loader.js?c02160a6097b517c325648f580b'></script>
           </Box>

@@ -7,8 +7,9 @@ import Footer from "../../components/footer";
 import { useAtom } from "jotai";
 import { atom, THEMES } from "../../atom/atom";
 import { useCallback, useMemo } from "react";
-import { AutoAwesome, PhoneInTalk } from "@mui/icons-material";
+import { PhoneInTalk } from "@mui/icons-material";
 import SERVICES from "../../services/services.json";
+import Booking from "../../components/booking";
 
 export const services = new Map(SERVICES.map((i) => [i.slug, i]));
 
@@ -35,7 +36,7 @@ export default function Service({ slug }: Props) {
       : "radial-gradient(circle at 50% 14em, #ffffff 0%, #eeeeee 60%, #cccccc 100%)";
   }, [data.theme]);
 
-  const onClickEmergencyCall = useCallback(() => {
+  const onClickCallNow = useCallback(() => {
     fetch("/api/phonecall", {
       method: "POST",
       keepalive: true,
@@ -47,10 +48,6 @@ export default function Service({ slug }: Props) {
     return imgs[Math.floor(Math.random() * imgs.length)];
   }, []);
 
-  const onClickQuickBooking = useCallback(() => {
-
-  }, []);
-
   return (
     <>
       <Head>
@@ -59,7 +56,7 @@ export default function Service({ slug }: Props) {
         <meta name="keywords" content={service?.metaKeywords}/>
         
         <link rel="canonical" href={`https://mysmi.uk/services/${service?.slug}`}/>
-        
+
         <script type="application/ld+json" dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
@@ -201,7 +198,7 @@ export default function Service({ slug }: Props) {
                       <Button
                         variant="contained"
                         href={`tel:+${process.env.NEXT_PUBLIC_PHONE_NUMBER}`}
-                        onClick={onClickEmergencyCall}
+                        onClick={onClickCallNow}
                         sx={{
                           borderRadius: 16,
                           px: 3,
@@ -211,22 +208,9 @@ export default function Service({ slug }: Props) {
                         }}
                       >
                         <PhoneInTalk fontSize="small" sx={{ mr: 1 }} />
-                        Emergency call
+                        Call now
                       </Button>
-                      <Button
-                        variant="outlined"
-                        onClick={onClickQuickBooking}
-                        sx={{
-                          borderRadius: 16,
-                          px: 3,
-                          [theme.breakpoints.down('md')]: {
-                            width: "100%",
-                          },
-                        }}
-                      >
-                        <AutoAwesome fontSize="small" sx={{ mr: 1 }} />
-                        Quick booking
-                      </Button>
+                      <Booking />
                     </Box>
                   </CardContent>
                 </CardActionArea>

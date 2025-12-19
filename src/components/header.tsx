@@ -79,7 +79,6 @@ export default function Header() {
           padding: 0,
         }
       }}>
-        {/* <Locations /> */}
         <Services />
         <IconButton color="secondary" href="https://www.instagram.com/" target="_blank">
           <Instagram fontSize="small"/>

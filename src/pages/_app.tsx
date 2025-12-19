@@ -13,7 +13,7 @@ import { useAtom } from "jotai";
 import { atom } from "../atom/atom";
 import Ukraine from "../components/ukraine";
 import Consent from "../components/consent";
-// import Message from "../components/message";
+import Message from "../components/message";
 
 const cssVariables = true;
 
@@ -104,7 +104,7 @@ function Main({ children }: { children: ReactNode }) {
         }} spacing={1}>
           <Consent />
           <Ukraine />
-          {/* <Message /> */}
+          <Message />
         </Stack>
         {children}
       </Box>

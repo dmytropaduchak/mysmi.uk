@@ -1,9 +1,9 @@
 import { ClickAwayListener, Link, MenuItem, MenuList, Tooltip, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
-import LOCATIONS from "../locations/locations.json";
+import BRANDS from "../brands/brands.json";
 
-export default function Locations() {
+export default function Brands() {
   const [open, setOpen] = useState(false);
 
   const router = useRouter();
@@ -37,12 +37,12 @@ export default function Locations() {
             <MenuList autoFocusItem={open} sx={{
               padding: 0
             }}>
-              {LOCATIONS.map((i, key) => (
+              {BRANDS.map((i, key) => (
                 <MenuItem key={key} sx={{
                   fontWeight: 200,
                   padding: 1,
                 }} onClick={() => {
-                  router.push(`/locations/${i.slug}`);
+                  router.push(`/brands/${i.slug}`);
                   setOpen(false);
                 }}>{i.name}</MenuItem>
               ))}
@@ -64,7 +64,7 @@ export default function Locations() {
                 color: "primary.main",
               },
             }}>
-              Locations
+              Brands
             </Link>
           </Typography>
         </Tooltip>

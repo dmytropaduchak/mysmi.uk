@@ -8,10 +8,10 @@ import { useAtom } from "jotai";
 import { atom, THEMES } from "../../atom/atom";
 import { useCallback, useMemo } from "react";
 import { PhoneInTalk } from "@mui/icons-material";
-import LOCATIONS from "../../locations/locations.json";
+import BRANDS from "../../brands/brands.json";
 import Booking from "../../components/booking";
 
-export const locations = new Map(LOCATIONS.map((i) => [i.slug, i]));
+export const brands = new Map(BRANDS.map((i) => [i.slug, i]));
 
 export const getServerSideProps = (async (context) => {
   return { props: context.params! };
@@ -21,13 +21,13 @@ interface Props {
   slug: string;
 }
 
-export default function Location({ slug }: Props) {
+export default function Brand({ slug }: Props) {
   const [data] = useAtom(atom);
 
   const theme = useTheme();
 
-  const location = useMemo(() => {
-    return locations.get(slug);
+  const brand = useMemo(() => {
+    return brands.get(slug);
   }, [slug]);
 
   const backgroundImage = useMemo(() => {
@@ -46,29 +46,44 @@ export default function Location({ slug }: Props) {
   return (
     <>
       <Head>
-        <title>{location?.metaTitle}</title>
-        <meta name="description" content={location?.metaDescription} />
-        <meta name="keywords" content={location?.metaKeywords}/>
+        <title>{brand?.metaTitle}</title>
+        <meta name="description" content={brand?.metaDescription} />
+        <meta name="keywords" content={brand?.metaKeywords}/>
         
-        <link rel="canonical" href={`https://mysmi.uk/lcoations/${location?.slug}`}/>
+        <link rel="canonical" href={`https://mysmi.uk/brands/${brand?.slug}`}/>
 
-        <script type="application/ld+json" dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Place",
-            "name": location?.name,
-            "address": {
-              "@type": "PostalAddress",
-              "addressLocality": location?.name,
-              "addressRegion": "Hertfordshire",
-              "addressCountry": "GB"
-            },
-            "containedInPlace": {
-              "@type": "AdministrativeArea",
-              "name": "Hertfordshire"
-            }
-          }),
-        }}/>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Service",
+              "@id": `https://mysmi.uk/brands/${brand?.slug}/#service`,
+              "name": `${brand?.name} Locksmith Services`,
+              "description": `Professional ${brand?.name} car key replacement, programming and lockout services in Hertfordshire.`,
+              "serviceType": "Car Locksmith",
+              "brand": {
+                "@type": "Brand",
+                "name": brand?.name
+              },
+              "areaServed": {
+                "@type": "AdministrativeArea",
+                "name": "Hertfordshire"
+              },
+              "provider": {
+                "@type": "LocalBusiness",
+                "@id": 'mySMI.uk/#business',
+                "name": "mySMI.uk",
+                "telephone": `+${process.env.NEXT_PUBLIC_PHONE_NUMBER}`,
+                "address": {
+                  "@type": "PostalAddress",
+                  "addressRegion": "Hertfordshire",
+                  "addressCountry": "GB"
+                }
+              }
+            }),
+          }}
+        />
       </Head>
       <Box
         sx={{
@@ -102,29 +117,29 @@ export default function Location({ slug }: Props) {
                   md: "left",
                 },
               }}>
-                {location?.name}
+                {brand?.name}
               </Typography>
               <Typography
                 variant="body1"
                 color="text.secondary"
                 sx={{ mb: 3, textAlign: { xs: "center", md: "left" } }}
               >
-                {location?.subtitle}
+                {brand?.subtitle}
               </Typography>
 
               <Typography variant="h2" sx={{
                 fontSize: "1.5rem",
                 mb: 2,
               }}>
-                {location?.title}
+                {brand?.title}
               </Typography>
               <Typography variant="body1" color="text.secondary">
-                {location?.description}
+                {brand?.description}
               </Typography>
             </Box>
 
             <Box sx={{ flex: 1, display: "flex", justifyContent: "center" }}>
-              <Card sx={{ width: "100%", maxWidth: 560, borderRadius: 2, overflow: "hidden" }}>
+              <Card sx={{ width: "100%", maxWidth: 480, borderRadius: 2, overflow: "hidden" }}>
                 <CardActionArea
                   component="div"
                   sx={{
@@ -138,9 +153,11 @@ export default function Location({ slug }: Props) {
                     sx={{
                       position: "absolute",
                       inset: 0,
-                      background: `url('/assets/locations/${location?.slug}.jpg') no-repeat center / cover`,
-                      filter: `grayscale(1) blur(1.5px) contrast(1.05) brightness(${data.theme === THEMES.DARK ? 0.3 : 0.5})`,
-                      transform: "scale(1.02)",
+                      backgroundImage: `url('/assets/brands/${brand?.slug}.webp')`,
+                      backgroundRepeat: "no-repeat",
+                      backgroundPosition: "center",
+                      backgroundSize: { xs: "auto 55%", md: "auto 60%" },
+                      filter: `grayscale(1) brightness(${data.theme === THEMES.DARK ? 0.35 : 0.6})`,
                       transition: "filter 200ms ease",
                     }}
                   />

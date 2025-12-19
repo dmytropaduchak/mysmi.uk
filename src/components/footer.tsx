@@ -5,6 +5,8 @@ import { HexColorPicker } from "react-colorful";
 import { atom, THEMES } from "../atom/atom";
 import Switch from "./switch";
 import { useRouter } from "next/router";
+import Locations from "./locations";
+import Brands from "./brands";
 
 export default function Footer() {
   const theme = useTheme();
@@ -83,10 +85,17 @@ export default function Footer() {
           [theme.breakpoints.down('md')]: {
             justifyContent: "center",
           },
+          '& .ColorPicker .MuiTooltip-tooltip': {
+            padding: "4px",
+            borderRadius: "12px",
+          },
+          "& .MuiTooltip-tooltip": {
+            padding: 0,
+          },
           opacity: 0.6
         }}>
           <ClickAwayListener onClickAway={onClickAway}>
-            <div>
+            <div className="ColorPicker">
               <Tooltip
                 onClose={onClose}
                 open={open}
@@ -122,16 +131,14 @@ export default function Footer() {
           <Typography color="secondary" variant="caption">
             © {new Date().getFullYear()} mySMI.uk
           </Typography>
+          <Locations />
+          <Brands />
         </Box>
         <Box sx={{
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "center",
           alignItems: "center",
-          '& .MuiTooltip-tooltip': {
-            padding: "4px",
-            borderRadius: "12px",
-          }
         }}>
           <Typography variant="caption" sx={{
             marginLeft: 2,

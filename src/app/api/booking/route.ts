@@ -23,11 +23,11 @@ export async function POST(nextRequest: NextRequest) {
     // }
     // return Response.json({ data });
     const time = Date.now() - currentTime;
-    console.log(`[DEBUG][API][POST][quote] ${time}ms.`);
+    console.log(`[DEBUG][API][POST][booking] ${time}ms.`);
     return NextResponse.json({ status: 204 });
   } catch (err) {
     const time = Date.now() - currentTime;
-    console.log(`[ERROR][API][POST][quote] ${time}ms.`, err);
+    console.log(`[ERROR][API][POST][booking] ${time}ms.`, err);
     return NextResponse.json({ error: "Bad Request", status: 400 });
   }
 }
