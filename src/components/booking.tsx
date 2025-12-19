@@ -49,7 +49,7 @@ interface Values {
 
 export default function Booking() {
   const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [loadingLocation, setLoadingLocation] = useState(false);
   const [data, setData] = useAtom(atom);
   const [step, setStep] = useState(0);
@@ -105,8 +105,8 @@ export default function Booking() {
   }, [setValue, formState, setLoadingLocation]);
 
   const onSubmit = useCallback(async (values: Values) => {
-    console.log({ ...data, date: date.toString(), time: time.value })
     try {
+      setLoading(true);
       await fetch('/api/booking', {
         method: 'POST',
         body: JSON.stringify({
@@ -128,11 +128,12 @@ export default function Booking() {
       }];
       setData({ ...data, messages });
     } finally {
+      setLoading(false);
       setOpen(false);
       setStep(0);
       reset();
     }
-  }, [date, time, data, setData, setOpen, setStep, reset]);
+  }, [setLoading, date, time, data, setData, setOpen, setStep, reset]);
 
   const slot = time?.label?.toUpperCase()?.split(' ');
   
@@ -349,7 +350,7 @@ export default function Booking() {
                   variant="outlined"
                   sx={{
                     mt: 2,
-                    borderRadius: "4px 0 0 4px",
+                    borderRadius: "4px",
                     backgroundColor: yellow[400],
                     ".MuiInputBase-root": {
                       paddingLeft: 0,
