@@ -15,7 +15,7 @@ export async function POST(nextRequest: NextRequest) {
     const currentTime = Date.now();
     try {
       const json = await nextRequest.json();
-  
+      console.log("[DEBUG][API][POST][telegram] Received JSON:", json);
       if (json?.message?.text === "/start") {
         const chat = JSON.stringify(json?.message?.chat);
         const user = JSON.stringify(json?.message?.from);
@@ -25,11 +25,11 @@ export async function POST(nextRequest: NextRequest) {
         const parse_mode = "HTML";
 
         const text = [
-          `Welcome to the mySMI.uk bot${json.message?.from?.first_name ? `, <b>${json.message?.from?.first_name}</b>` : ""}.`,
+          `Welcome to the mySMI.uk bot${json?.message?.from?.first_name ? `, <b>${json?.message?.from?.first_name}</b>` : ""}.`,
           "This bot receives booking requests for review and client confirmation.",
         ].join("\n");
 
-        await send({ chat_id, parse_mode, text });
+        await send({ chat_id, text: "test" });
         return NextResponse.json({ status: 200, ok: true });
       }
 
@@ -84,7 +84,7 @@ export async function POST(nextRequest: NextRequest) {
   
       const time = Date.now() - currentTime;
       console.log(`[DEBUG][API][POST][telegram] ${time}ms.`);
-      return NextResponse.json({ status: 204, ok: true });
+      return NextResponse.json({ status: 200, ok: true });
     } catch (err) {
       const time = Date.now() - currentTime;
       console.log(`[ERROR][API][POST][telegram] ${time}ms.`, err);
