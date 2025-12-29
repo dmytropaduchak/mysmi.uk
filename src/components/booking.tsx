@@ -1,6 +1,6 @@
 import { AutoAwesome, Close, Place } from "@mui/icons-material";
 import { Autocomplete, AutocompleteRenderInputParams, Box, Button, CircularProgress, Dialog, DialogContent, DialogTitle, FormControlLabel, Grid, IconButton, InputAdornment, Radio, RadioGroup, TextField, Typography, useTheme } from "@mui/material";
-import { SyntheticEvent, useCallback, useState } from "react"
+import { SyntheticEvent, useCallback, useMemo, useState } from "react"
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
@@ -51,9 +51,11 @@ export default function Booking() {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loadingLocation, setLoadingLocation] = useState(false);
+  const [loadingSlot, setLoadingSlot] = useState(false);
+  const [booking, seBooking] = useState<any[]>();
   const [data, setData] = useAtom(atom);
   const [step, setStep] = useState(0);
-  const [time, setTime] = useState(SLOTS[0]);
+  const [time, setTime] = useState<any>();
   const [date, setDate] = useState(dayjs());
 
   const theme = useTheme();
@@ -63,9 +65,21 @@ export default function Booking() {
     reValidateMode: "onChange",
   });
   
-  const onClickOpen = useCallback(() => {
-    setOpen(true);
-  }, [setOpen]);
+  const onClickOpen = useCallback(async () => {
+    try {
+      setLoadingSlot(true);
+
+      const slotReq = await fetch('/api/booking');
+      const slotRes = await slotReq.json();
+
+      seBooking(slotRes.data);
+      setOpen(true);
+    } catch(err) {
+      console.error(err);
+    } finally {
+      setLoadingSlot(false);
+    }
+  }, [setOpen, seBooking, setLoadingSlot]);
 
   const onClickClose = useCallback(() => {
     setOpen(false);
@@ -112,7 +126,7 @@ export default function Booking() {
         body: JSON.stringify({
           ...values,
           date: date.toString(),
-          time: time.value,
+          time: time?.value,
         }),
       });
       const messages = [...data.messages, {
@@ -135,7 +149,34 @@ export default function Booking() {
     }
   }, [setLoading, date, time, data, setData, setOpen, setStep, reset]);
 
-  const slot = time?.label?.toUpperCase()?.split(' ');
+  const slot = useMemo(() => {
+    return time?.label?.toUpperCase()?.split(' ');
+  }, [time]);
+
+  const slots = useMemo(() => {
+    const now = dayjs();
+
+    return SLOTS.map((slotItem) => {
+      const isBooked = booking?.some((item) => {
+        if (!item?.date) return false;
+        const itemDate = dayjs(item.date);
+        const sameDay = itemDate.isSame(date, "day");
+        const timeMatch = item?.type === slotItem.value || item?.time === slotItem.value || item?.type === slotItem.label || item?.time === slotItem.label;
+        return sameDay && timeMatch;
+      }) ?? false;
+
+      const isPast = date?.isSame(now, "day") ? (() => {
+        const [hourStr, minStr] = slotItem.value.split(":");
+        const slotTime = date.hour(Number(hourStr)).minute(Number(minStr)).second(0).millisecond(0);
+        return slotTime.isBefore(now);
+      })() : false;
+
+      return {
+        ...slotItem,
+        disabled: isBooked || isPast,
+      };
+    });
+  }, [booking, date, setTime, time]);
   
   const error = useCallback((name: keyof Values) => {
     return !!formState?.errors[name] && formState?.submitCount > 1
@@ -143,7 +184,7 @@ export default function Booking() {
 
   return (
     <>
-      <Button variant="outlined" onClick={onClickOpen} sx={{
+      <Button variant="outlined" disabled={loadingSlot} loading={loadingSlot} onClick={onClickOpen} sx={{
         borderRadius: 16,
         paddingRight: 3,
         paddingLeft: 2,
@@ -203,7 +244,11 @@ export default function Booking() {
         }}>
           <form onSubmit={handleSubmit(onSubmit)}>
             {step === 0 && (
-              <Box>
+              <Box sx={{
+                '& .MuiDateCalendar-root': {
+                  height: "312px",
+                }
+              }}>
                 <Typography variant="h6">
                   Select the day you want us to come out
                 </Typography>
@@ -233,11 +278,17 @@ export default function Booking() {
                 <Grid container spacing={1} sx={{
                   marginY: 2,
                 }}>
-                  {SLOTS.map((slot, key) => (
+                  {slots.map((slot, key) => (
                     <Grid key={key} size={6}>
-                      <Button color={time?.value == slot.value ? "primary" : "inherit"} fullWidth onClick={() => {
-                        setTime(slot);
-                      }} variant={time?.value == slot.value ? "contained" : "outlined"}>
+                      <Button
+                        color={time?.value == slot.value ? "primary" : "inherit"}
+                        disabled={slot.disabled}
+                        fullWidth
+                        onClick={() => {
+                          setTime(slot);
+                        }}
+                        variant={time?.value == slot.value ? "contained" : "outlined"}
+                      >
                         {slot.label}
                       </Button>
                     </Grid>
