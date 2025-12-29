@@ -12,84 +12,94 @@ import { NextRequest, NextResponse } from "next/server";
 // };
 
 export async function POST(nextRequest: NextRequest) {
-    const currentTime = Date.now();
-    try {
-      const json = await nextRequest.json();
-      console.log("[DEBUG][API][POST][telegram] Received JSON:", json);
-      if (json?.message?.text === "/start") {
-        const chat = JSON.stringify(json?.message?.chat);
-        const user = JSON.stringify(json?.message?.from);
-        await db.insert(session).values({ chat, user });
+  const body = await nextRequest.json();
+  console.log("Telegram update:", JSON.stringify(body));
+  return NextResponse.json({ ok: true });
 
-        const chat_id = json?.message?.chat?.id;
-        const parse_mode = "HTML";
+    // const currentTime = Date.now();
+    // try {
+    //   const json = await nextRequest.json();
+    //   console.log("[DEBUG][API][POST][telegram] Received JSON:", json);
+    //   if (json?.message?.text === "/start") {
+    //     const chat = JSON.stringify(json?.message?.chat);
+    //     const user = JSON.stringify(json?.message?.from);
+    //     await db.insert(session).values({ chat, user });
 
-        const text = [
-          `Welcome to the mySMI.uk bot${json?.message?.from?.first_name ? `, <b>${json?.message?.from?.first_name}</b>` : ""}.`,
-          "This bot receives booking requests for review and client confirmation.",
-        ].join("\n");
+    //     const chat_id = json?.message?.chat?.id;
+    //     const parse_mode = "HTML";
 
-        await send({ chat_id, text: "test" });
-        return NextResponse.json({ status: 200, ok: true });
-      }
+    //     const text = [
+    //       `Welcome to the mySMI.uk bot${json?.message?.from?.first_name ? `, <b>${json?.message?.from?.first_name}</b>` : ""}.`,
+    //       "This bot receives booking requests for review and client confirmation.",
+    //     ].join("\n");
 
-
-
-
-
-
-
-      const chatId = json?.message?.chat?.id;
-      const text = json?.message?.text;
-
-      // simple reply
-      // await fetch(`${TELEGRAM_API}/sendMessage`, {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify({
-      //     chat_id: chatId,
-      //     text: `You said: ${text}`,
-      //   }),
-      // });
+    //     await send({ chat_id, text: "test" });
+    //     return NextResponse.json({ status: 200, ok: true });
+    //   }
 
 
-      const body = JSON.stringify({
-        chat_id: chatId,
-        text: "Do you like this bot?",
-        reply_markup: {
-          inline_keyboard: [
-            [
-              { text: "✅ Yes", url: "like_yes" },
-              { text: "❌ No", url: "like_no" },
-            ],
-          ],
-        },
-      });
 
-      // await fetch(`${TELEGRAM_API}/sendMessage`, { method, headers, body });
 
-      // const date = new Date(json.date);
-      // const [h, m] = json.time.split(":").map(Number);
+
+
+
+    //   const chatId = json?.message?.chat?.id;
+    //   const text = json?.message?.text;
+
+    //   // simple reply
+    //   // await fetch(`${TELEGRAM_API}/sendMessage`, {
+    //   //   method: "POST",
+    //   //   headers: { "Content-Type": "application/json" },
+    //   //   body: JSON.stringify({
+    //   //     chat_id: chatId,
+    //   //     text: `You said: ${text}`,
+    //   //   }),
+    //   // });
+
+
+    //   const body = JSON.stringify({
+    //     chat_id: chatId,
+    //     text: "Do you like this bot?",
+    //     reply_markup: {
+    //       inline_keyboard: [
+    //         [
+    //           { text: "✅ Yes", url: "like_yes" },
+    //           { text: "❌ No", url: "like_no" },
+    //         ],
+    //       ],
+    //     },
+    //   });
+
+    //   // await fetch(`${TELEGRAM_API}/sendMessage`, { method, headers, body });
+
+    //   // const date = new Date(json.date);
+    //   // const [h, m] = json.time.split(":").map(Number);
   
-      // const scheduledAtUTC = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), h, m, 0, 0);
-      // const scheduledAt = new Date(scheduledAtUTC);
+    //   // const scheduledAtUTC = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), h, m, 0, 0);
+    //   // const scheduledAt = new Date(scheduledAtUTC);
   
-      // const data = JSON.stringify(json);
-      // await db
-      //   .insert(booking)
-      //   .values({ data, scheduledAt });
+    //   // const data = JSON.stringify(json);
+    //   // await db
+    //   //   .insert(booking)
+    //   //   .values({ data, scheduledAt });
   
-      // await sendClientAppointment({ json, scheduledAt });
-      // await sendWorkerAppointment({ json, scheduledAt });
+    //   // await sendClientAppointment({ json, scheduledAt });
+    //   // await sendWorkerAppointment({ json, scheduledAt });
   
-      const time = Date.now() - currentTime;
-      console.log(`[DEBUG][API][POST][telegram] ${time}ms.`);
-      return NextResponse.json({ status: 200, ok: true });
-    } catch (err) {
-      const time = Date.now() - currentTime;
-      console.log(`[ERROR][API][POST][telegram] ${time}ms.`, err);
-      return NextResponse.json({ error: "Bad Request", status: 400 });
-    }
+    //   const time = Date.now() - currentTime;
+    //   console.log(`[DEBUG][API][POST][telegram] ${time}ms.`);
+    //   return NextResponse.json({ status: 200, ok: true });
+    // } catch (err) {
+    //   const time = Date.now() - currentTime;
+    //   console.log(`[ERROR][API][POST][telegram] ${time}ms.`, err);
+    //   return NextResponse.json({ error: "Bad Request", status: 400 });
+    // }
+
+
+
+
+
+
   // const update = await nextRequest.json();
 
   // const message = update.message;
@@ -199,8 +209,3 @@ export async function POST(nextRequest: NextRequest) {
 //     }],
 //   });
 // }
-
-
-export async function GET() {
-  return NextResponse.json({ status: 200, ok: true });
-}
