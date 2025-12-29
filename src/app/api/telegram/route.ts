@@ -3,13 +3,13 @@ import { db } from "../../../db";
 import { session } from "../../../db/schema";
 import { NextRequest, NextResponse } from "next/server";
 
-const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN!;
-const TELEGRAM_API = `https://api.telegram.org/bot${TELEGRAM_TOKEN}`;
+// const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN!;
+// const TELEGRAM_API = `https://api.telegram.org/bot${TELEGRAM_TOKEN}`;
 
-const method = "POST";
-const headers = {
-  "Content-Type": "application/json",
-};
+// const method = "POST";
+// const headers = {
+//   "Content-Type": "application/json",
+// };
 
 export async function POST(nextRequest: NextRequest) {
     const currentTime = Date.now();
@@ -30,7 +30,7 @@ export async function POST(nextRequest: NextRequest) {
         ].join("\n");
 
         await send({ chat_id, parse_mode, text });
-        return NextResponse.json({ status: 204, ok: true });
+        return NextResponse.json({ status: 200, ok: true });
       }
 
 
@@ -66,7 +66,7 @@ export async function POST(nextRequest: NextRequest) {
         },
       });
 
-      await fetch(`${TELEGRAM_API}/sendMessage`, { method, headers, body });
+      // await fetch(`${TELEGRAM_API}/sendMessage`, { method, headers, body });
 
       // const date = new Date(json.date);
       // const [h, m] = json.time.split(":").map(Number);
@@ -199,3 +199,8 @@ export async function POST(nextRequest: NextRequest) {
 //     }],
 //   });
 // }
+
+
+export async function GET() {
+  return NextResponse.json({ status: 200, ok: true });
+}
