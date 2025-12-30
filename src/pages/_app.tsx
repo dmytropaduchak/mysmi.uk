@@ -79,7 +79,7 @@ function Main({ children }: { children: ReactNode }) {
         alignItems: "center",
         justifyContent: "center",
       }}>
-        <CircularProgress size={24} />
+        <CircularProgress size={21} />
       </Box>
     );
   }
