@@ -1,21 +1,14 @@
-import { send } from "@/src/telegram/telegram";
+import { editMessage, editMessageAcknowledge, sendMessage } from "../../../telegram/telegram";
 import { db } from "../../../db";
-import { session } from "../../../db/schema";
+import { eq } from "drizzle-orm";
+import { booking, session } from "../../../db/schema";
 import { NextRequest, NextResponse } from "next/server";
-
-// const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN!;
-// const TELEGRAM_API = `https://api.telegram.org/bot${TELEGRAM_TOKEN}`;
-
-// const method = "POST";
-// const headers = {
-//   "Content-Type": "application/json",
-// };
 
 export async function POST(nextRequest: NextRequest) {
     const currentTime = Date.now();
     try {
       const json = await nextRequest.json();
-      console.log(json);
+
       if (json?.message?.text === "/start") {
         const chat = JSON.stringify(json?.message?.chat);
         const user = JSON.stringify(json?.message?.from);
@@ -29,8 +22,94 @@ export async function POST(nextRequest: NextRequest) {
           "This bot receives booking requests for review and client confirmation.",
         ].join("\n");
 
-        await send({ chat_id, parse_mode, text });
+        await sendMessage({ chat_id, parse_mode, text });
         return NextResponse.json({ status: 200, ok: true });
+      }
+
+      if (json?.callback_query?.data.includes("cancel")) {
+        const data = json?.callback_query?.data.split(":");
+        const id = Number(data[1]);
+
+        const status = "aborted";
+        await db
+          .update(booking)
+          .set({ status })
+          .where(eq(booking.id, id));
+
+        const text = `
+<b>🔴 Car Locksmith Service Booking #${id}</b>
+
+<b>Name:</b> ${json?.name}
+<b>📞 Phone:</b> <a href="tel:${json?.phone}">${json?.phone}</a>
+<b>✉️ Email:</b> <a href="mailto:${json?.email}">${json?.email}</a>
+<b>📍 Post Code:</b> <a href="https://maps.google.com/maps?q=${json?.postcode}">${json?.postcode}</a>
+<b>🚗 Registration:</b> <a href="https://www.carcheck.co.uk/reg?i=${json?.registration.toUpperCase()}">${json?.registration.toUpperCase()}</a>
+<b>🛠 Service:</b> ${json?.services?.join(", ")}
+<b>🔑 Key Type:</b> ${json?.ignitionType}
+`.trim();
+
+        const reply_markup = {
+          inline_keyboard: [],
+        };
+
+        const rows = await db.select().from(booking).where(eq(booking.id, id));
+        const row = JSON.parse(rows[0].data!);
+        for (const i in row.connections) {
+          const chat_id = Number(i);
+          const message_id = row.connections[i];
+          const callback_query_id = json?.callback_query?.id;
+
+          await editMessage({ text, reply_markup, chat_id, message_id });
+          await editMessageAcknowledge({ callback_query_id });
+        }
+        // to do...
+      }
+
+
+
+      if (json?.callback_query?.data.includes("accept")) {
+        const data = json?.callback_query?.data.split(":");
+        const id = Number(data[1]);
+        const status = "claimed";
+        await db
+          .update(booking)
+          .set({ status })
+          .where(eq(booking.id, id));
+
+        const text = `
+<b>🟢 Car Locksmith Service Booking #${id}</b>
+
+<b>Name:</b> ${json?.name}
+<b>📞 Phone:</b> <a href="tel:${json?.phone}">${json?.phone}</a>
+<b>✉️ Email:</b> <a href="mailto:${json?.email}">${json?.email}</a>
+<b>📍 Post Code:</b> <a href="https://maps.google.com/maps?q=${json?.postcode}">${json?.postcode}</a>
+<b>🚗 Registration:</b> <a href="https://www.carcheck.co.uk/reg?i=${json?.registration.toUpperCase()}">${json?.registration.toUpperCase()}</a>
+<b>🛠 Service:</b> ${json?.services?.join(", ")}
+<b>🔑 Key Type:</b> ${json?.ignitionType}
+`.trim();
+
+        const reply_markup = {
+          inline_keyboard: [
+            [
+              [
+                { text: "📞 Call Client", url: `tel:${json?.phone}` },
+                { text: "💬 WhatsApp", url: `https://wa.me/${json?.phone}`},
+              ],
+            ]
+          ],
+        };
+
+        const rows = await db.select().from(booking).where(eq(booking.id, id));
+        const row = JSON.parse(rows[0].data!);
+        for (const i in row.connections) {
+          const chat_id = Number(i);
+          const message_id = row.connections[i];
+          const callback_query_id = json?.callback_query?.id;
+
+          await editMessage({ text, reply_markup, chat_id, message_id });
+          await editMessageAcknowledge({ callback_query_id });
+        }
+        //to do...
       }
 
 
@@ -39,32 +118,7 @@ export async function POST(nextRequest: NextRequest) {
 
 
 
-      const chatId = json?.message?.chat?.id;
-      const text = json?.message?.text;
 
-      // simple reply
-      // await fetch(`${TELEGRAM_API}/sendMessage`, {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify({
-      //     chat_id: chatId,
-      //     text: `You said: ${text}`,
-      //   }),
-      // });
-
-
-      const body = JSON.stringify({
-        chat_id: chatId,
-        text: "Do you like this bot?",
-        reply_markup: {
-          inline_keyboard: [
-            [
-              { text: "✅ Yes", url: "like_yes" },
-              { text: "❌ No", url: "like_no" },
-            ],
-          ],
-        },
-      });
 
       // await fetch(`${TELEGRAM_API}/sendMessage`, { method, headers, body });
 

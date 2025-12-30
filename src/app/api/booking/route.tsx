@@ -2,7 +2,7 @@ import { db } from "../../../db";
 import { booking, session } from "../../../db/schema";
 import { gte, and, eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
-import { send } from "../../../telegram/telegram";
+import { sendMessage } from "../../../telegram/telegram";
 import { htmlToText } from "html-to-text";
 import { render } from "@react-email/render";
 import EmailBookingWorker from "../../../emails/email-booking-worker";
@@ -19,13 +19,12 @@ export async function POST(nextRequest: NextRequest) {
     const scheduledAtUTC = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), h, m, 0, 0);
     const scheduledAt = new Date(scheduledAtUTC);
     const status = "created";
-    const data = JSON.stringify(json);
-    const [id] = await db
+    const [{ id }] = await db
       .insert(booking)
-      .values({ data, scheduledAt, status }).returning();
+      .values({ data: JSON.stringify(json), scheduledAt, status }).returning();
 
     const text = `
-<b>🚗🔑 Car Locksmith Service Booking #${id}</b>
+<b>⏳ Car Locksmith Service Booking #${id}</b>
 
 <b>Name:</b> ${json?.name}
 <b>📞 Phone:</b> <a href="tel:${json?.phone}">${json?.phone}</a>
@@ -36,7 +35,7 @@ export async function POST(nextRequest: NextRequest) {
 <b>🔑 Key Type:</b> ${json?.ignitionType}
 `.trim();
 
-    const reply_markup= {
+    const reply_markup = {
       inline_keyboard: [
         [
           [
@@ -44,8 +43,8 @@ export async function POST(nextRequest: NextRequest) {
             { text: "💬 WhatsApp", url: `https://wa.me/${json?.phone}`},
           ],
           [
-            { text: "✅ Accept", callback_data: "accept" },
-            { text: "❌ Cancel", callback_data: "cancel" },
+            { text: "✅ Accept", callback_data: `accept:${id}` },
+            { text: "❌ Cancel", callback_data: `cancel:${id}` },
           ],
         ]
       ],
@@ -62,11 +61,23 @@ export async function POST(nextRequest: NextRequest) {
     });
 
     const rows = await db.select().from(session);
+
     for (const row of rows) {
       const chat = JSON.parse(row.chat!);
       const chat_id = chat.id;
-      await send({ text, reply_markup, chat_id });
+      
+      const message = await sendMessage({ text, reply_markup, chat_id });
+      const message_id = message?.result?.message_id;
+      
+      json.connections = { ...(json.connections || {}), [chat_id]: message_id };
     }
+
+    const data = JSON.stringify(json);
+
+    await db
+      .update(booking)
+      .set({ data })
+      .where(eq(booking.id, id));
   
     const time = Date.now() - currentTime;
     console.log(`[DEBUG][API][POST][booking] ${time}ms.`);

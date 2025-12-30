@@ -6,7 +6,19 @@ const headers = {
   "Content-Type": "application/json",
 };
 
-export const send = async (data: any) => {
+export const sendMessage = async (data: any) => {
   const body = JSON.stringify(data);
-  await fetch(`${TELEGRAM_API}/sendMessage`, { method, headers, body });
+  const response = await fetch(`${TELEGRAM_API}/sendMessage`, { method, headers, body });
+  const responseJson = await response.json();
+  return responseJson
 }
+
+export const editMessage = async (data: any) => {
+  const body = JSON.stringify(data);
+  await fetch(`${TELEGRAM_API}/editMessageText`, { method, headers, body });
+}
+
+export const editMessageAcknowledge = async (data: any) => {
+  const body = JSON.stringify(data);
+  await fetch(`${TELEGRAM_API}/answerCallbackQuery`, { method, headers, body });
+} 
