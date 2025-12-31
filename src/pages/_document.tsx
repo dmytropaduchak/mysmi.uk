@@ -9,7 +9,7 @@ function Body({ children }: { children: ReactNode }) {
 
 export default function _Document(props: DocumentProps & DocumentHeadTagsProps) {
   return (
-    <Html lang={props.locale}>
+    <Html lang={props.locale || "en"}>
       <Head>
         <DocumentHeadTags {...props} />
       </Head>

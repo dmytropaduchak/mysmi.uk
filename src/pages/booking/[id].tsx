@@ -25,12 +25,6 @@ export default function Booking({ id }: Props) {
       : "radial-gradient(circle at 50% 14em, #ffffff 0%, #eeeeee 60%, #cccccc 100%)";
   }, [data.theme]);
 
-  // const onClickCallNow = useCallback(() => {
-  //   fetch("/api/phonecall", {
-  //     method: "POST",
-  //     keepalive: true,
-  //   });
-  // }, []);
   const fetchBooking = useCallback(async () => {
     try {
       // const response = await fetch(`/api/booking/${id}`);

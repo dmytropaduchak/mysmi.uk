@@ -47,12 +47,12 @@ export default function Ukraine() {
             </Typography>
           </CardContent>
         </CardActionArea>
-        <IconButton size="small" color="secondary" sx={{
+        <IconButton size="small" aria-label="Close Button" color="secondary" sx={{
           position: "absolute",
           top: "4px",
           right: "4px",
         }} onClick={onClickClose}>
-          <Close fontSize="small" />
+          <Close aria-hidden={true} fontSize="small" />
         </IconButton>
       </Card>
     } />

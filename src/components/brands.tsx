@@ -59,7 +59,7 @@ export default function Brands() {
             whiteSpace: "nowrap",
             fontWeight: 200,
           }}>
-            <Link onClick={onClickOpen} color={open ? "primary" :"secondary"} underline="none" sx={{
+            <Link component="button" onClick={onClickOpen} color={open ? "primary" :"secondary"} underline="none" sx={{
               "&:hover": {
                 color: "primary.main",
               },

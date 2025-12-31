@@ -59,7 +59,7 @@ export default function Locations() {
             whiteSpace: "nowrap",
             fontWeight: 200,
           }}>
-            <Link onClick={onClickOpen} color={open ? "primary" :"secondary"} underline="none" sx={{
+            <Link onClick={onClickOpen} component="button" color={open ? "primary" :"secondary"} underline="none" sx={{
               "&:hover": {
                 color: "primary.main",
               },

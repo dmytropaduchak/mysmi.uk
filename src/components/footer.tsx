@@ -114,7 +114,7 @@ export default function Footer() {
               >
                 <Box
                   sx={{
-                    backgroundColor: data.color,
+                    backgroundColor: data.color || theme.palette.primary.main,
                     width: "16px",
                     height: "16px",
                     borderRadius: "50%",
@@ -145,7 +145,7 @@ export default function Footer() {
             whiteSpace: "nowrap",
             fontWeight: 200,
           }}>
-            <Link onClick={onClickAboutUs} color="secondary" underline="none" sx={{
+            <Link href="/about-us" color="secondary" underline="none" sx={{
               "&:hover": {
                 color: "primary.main",
               },
@@ -158,7 +158,7 @@ export default function Footer() {
             whiteSpace: "nowrap",
             fontWeight: 200,
           }}>
-            <Link onClick={onClickContactUs} color="secondary" underline="none" sx={{
+            <Link href="/contact-us" color="secondary" underline="none" sx={{
               "&:hover": {
                 color: "primary.main",
               },
@@ -171,7 +171,7 @@ export default function Footer() {
             whiteSpace: "nowrap",
             fontWeight: 200,
           }}>
-            <Link onClick={onClickTermsAndAgreements} color="secondary" underline="none" sx={{
+            <Link href="/terms-and-agreements" color="secondary" underline="none" sx={{
               "&:hover": {
                 color: "primary.main",
               },
@@ -185,7 +185,7 @@ export default function Footer() {
             whiteSpace: "nowrap",
             fontWeight: 200,
           }}>
-            <Link onClick={onClickCookieStatement} color="secondary" underline="none" sx={{
+            <Link href="/cookie-Statement" color="secondary" underline="none" sx={{
               "&:hover": {
                 color: "primary.main",
               },
@@ -200,7 +200,7 @@ export default function Footer() {
             fontWeight: 200,
             marginRight: 2,
           }}>
-            <Link onClick={onClickPrivacyStatement} color="secondary" underline="none" sx={{
+            <Link href="/privacy-statement" color="secondary" underline="none" sx={{
               "&:hover": {
                 color: "primary.main",
               },
@@ -208,7 +208,7 @@ export default function Footer() {
               Privacy Statement
             </Link>
           </Typography>
-          <Switch size="small" color="primary" checked={checked} onChange={onChangeTheme} />
+          <Switch size="small" color="primary" aria-label="Change Theme" checked={checked} onChange={onChangeTheme} />
         </Box>
       </Box>
     </Box>

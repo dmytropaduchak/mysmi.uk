@@ -34,7 +34,7 @@ export default function Header() {
       <Box sx={{
         marginLeft: 1
       }}>
-        <Link underline="none" color="secondary" onClick={onClick} sx={{
+        <Link underline="none" color="secondary" href="/" onClick={onClick} sx={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -80,13 +80,13 @@ export default function Header() {
         }
       }}>
         <Services />
-        <IconButton color="secondary" href="https://www.instagram.com/" target="_blank">
+        <IconButton aria-label="Instagram Button" color="secondary" href="https://www.instagram.com/" target="_blank">
           <Instagram fontSize="small"/>
         </IconButton>
-        <IconButton color="secondary" href="https://www.facebook.com/" target="_blank">
+        <IconButton aria-label="Facebook Button" color="secondary" href="https://www.facebook.com/" target="_blank">
           <Facebook fontSize="small"/>
         </IconButton>
-        <IconButton color="primary" target="_blank" href={`https://wa.me/${process.env.NEXT_PUBLIC_PHONE_NUMBER}`} onClick={onClickWhatsApp}>
+        <IconButton aria-label="WhatsApp Button" color="primary" target="_blank" href={`https://wa.me/${process.env.NEXT_PUBLIC_PHONE_NUMBER}`} onClick={onClickWhatsApp}>
           <WhatsApp fontSize="small"/>
         </IconButton>
       </Box>
