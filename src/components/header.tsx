@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { Facebook, Instagram, WhatsApp } from "@mui/icons-material";
 import { useAtom } from "jotai";
 import { atom } from "../atom/atom";
-// import Locations from "./locations";
 import Services from "./services";
 
 export default function Header() {

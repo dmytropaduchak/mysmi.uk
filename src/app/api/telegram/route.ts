@@ -62,10 +62,7 @@ export async function POST(nextRequest: NextRequest) {
           await editMessage({ text, reply_markup, chat_id, message_id });
           await editMessageAcknowledge({ callback_query_id });
         }
-        // to do...
       }
-
-
 
       if (json?.callback_query?.data.includes("accept")) {
         const data = json?.callback_query?.data.split(":");
@@ -109,6 +106,8 @@ export async function POST(nextRequest: NextRequest) {
           await editMessage({ text, reply_markup, chat_id, message_id });
           await editMessageAcknowledge({ callback_query_id });
         }
+
+        
         //to do...
       }
 
